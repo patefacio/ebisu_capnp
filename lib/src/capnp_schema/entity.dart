@@ -11,6 +11,14 @@ class CapnpEntity extends Entity {
 
   CapnpEntity(id) : _id = makeId(id);
 
+  get docComment {
+    final contents = chomp(br([brief, descr]), true);
+    if (contents.isNotEmpty) {
+      return scriptComment(contents, '  ');
+    }
+    return null;
+  }
+
   // end <class CapnpEntity>
 
   final Id _id;

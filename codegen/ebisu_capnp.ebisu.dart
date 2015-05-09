@@ -49,6 +49,7 @@ A library focusing on capnp modeling and enhancement
       ..imports = [
         'package:id/id.dart',
         'package:ebisu/ebisu.dart',
+        'package:quiver/iterables.dart',
       ]
       ..parts = [
 

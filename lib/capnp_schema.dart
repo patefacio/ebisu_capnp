@@ -2,6 +2,7 @@ library ebisu_capnp.capnp_schema;
 
 import 'package:ebisu/ebisu.dart';
 import 'package:id/id.dart';
+import 'package:quiver/iterables.dart';
 
 // custom <additional imports>
 // end <additional imports>

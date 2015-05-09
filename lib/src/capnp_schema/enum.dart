@@ -4,9 +4,16 @@ class EnumValue extends CapnpEntity with Numbered {
 
   // custom <class EnumValue>
 
-  EnumValue(id) : super(id);
+  EnumValue(id, [number_ = 0]) : super(id) {
+    number = number_;
+  }
 
-  get definition => '$name';
+  get definition => brCompact(
+      [
+        '$name @$number;',
+        indentBlock(docComment),
+      ]);
+
   get name => CapnpEntity.namer.nameEnumValue(id);
 
   // end <class EnumValue>
@@ -22,22 +29,25 @@ class Enum extends CapnpEntity implements Definable, Referable {
 
   get definition => brCompact([
     _opener,
-    indentBlock(br(values.map((v) => v.definition), ',\n', true)),
+    indentBlock(docComment),
+    indentBlock(br(values.map((v) => v.definition), '\n', true)),
     _closer,
   ]);
 
   get name => CapnpEntity.namer.nameEnum(id);
 
-  set values(entries) =>
-    _values = entries.map((e) => _makeEnumValue(e)).toList();
+  set values(entries) => _values = enumerate(entries)
+    .map((IndexedValue iv) => _makeEnumValue(iv.index, iv.value))
+      .toList();
 
   get _opener => 'enum $name {';
   get _closer => '}';
 
-  _makeEnumValue(entry) =>
-    (entry is String || entry is Id)? new EnumValue(entry) :
-    (entry is EnumValue)? entry :
-    throw 'Enum.values must have entries of type [String, Id, or EnumValue]';
+  _makeEnumValue(index, entry) => (entry is String || entry is Id)
+    ? new EnumValue(entry, index)
+      : (entry is EnumValue)
+          ? entry
+          : throw 'Enum.values must have entries of type [String, Id, or EnumValue]';
 
   // end <class Enum>
 
@@ -46,6 +56,7 @@ class Enum extends CapnpEntity implements Definable, Referable {
 
 // custom <part enum>
 
+EnumValue enumValue(id, number) => new EnumValue(id, number);
 Enum enum_(id) => new Enum(id);
 
 // end <part enum>
