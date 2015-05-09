@@ -8,11 +8,7 @@ class EnumValue extends CapnpEntity with Numbered {
     number = number_;
   }
 
-  get definition => brCompact(
-      [
-        '$name @$number;',
-        indentBlock(docComment),
-      ]);
+  get definition => brCompact(['$name @$number;', indentBlock(docComment),]);
 
   get name => CapnpEntity.namer.nameEnumValue(id);
 
@@ -37,14 +33,14 @@ class Enum extends CapnpEntity implements Definable, Referable {
   get name => CapnpEntity.namer.nameEnum(id);
 
   set values(entries) => _values = enumerate(entries)
-    .map((IndexedValue iv) => _makeEnumValue(iv.index, iv.value))
+      .map((IndexedValue iv) => _makeEnumValue(iv.index, iv.value))
       .toList();
 
   get _opener => 'enum $name {';
   get _closer => '}';
 
   _makeEnumValue(index, entry) => (entry is String || entry is Id)
-    ? new EnumValue(entry, index)
+      ? new EnumValue(entry, index)
       : (entry is EnumValue)
           ? entry
           : throw 'Enum.values must have entries of type [String, Id, or EnumValue]';

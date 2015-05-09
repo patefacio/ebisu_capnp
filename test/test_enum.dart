@@ -41,12 +41,9 @@ enum Color {
     final e = enum_('color')
       ..doc = 'Establishes the beest colors'
       ..values = [
-        enumValue('red', 3)
-        ..doc = 'The color of blood',
-        enumValue('green', 6)
-        ..doc = 'The color of grass',
-        enumValue('blue', 9)
-        ..doc = 'The color of the sky',
+        enumValue('red', 3)..doc = 'The color of blood',
+        enumValue('green', 6)..doc = 'The color of grass',
+        enumValue('blue', 9)..doc = 'The color of the sky',
       ];
 
     expect(darkSame(e.definition, '''
@@ -60,7 +57,6 @@ enum Color {
     #  The color of the sky
 }
 '''), true);
-
   });
 
 // end <main>

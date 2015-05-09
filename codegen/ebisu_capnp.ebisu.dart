@@ -105,7 +105,20 @@ A library focusing on capnp modeling and enhancement
 
         part('using')
         ..classes = [
-          class_('using'),
+
+          class_('using_statement')..isAbstract = true,
+
+          class_('using')
+          ..implement = [ 'Definable', 'UsingStatement' ]
+          ..members = [
+            member('reference')..access = RO
+          ],
+          class_('alias_using')
+          ..extend = 'CapnpEntity'
+          ..implement = [ 'UsingStatement' ]
+          ..members = [
+            member('using')..type = 'Using'..access = RO
+          ],
         ],
 
         part('enum')
