@@ -1,7 +1,6 @@
 part of ebisu_capnp.capnp_schema;
 
 class Constant {
-
   String type;
   String value;
 
@@ -12,4 +11,3 @@ class Constant {
 
 // custom <part constant>
 // end <part constant>
-

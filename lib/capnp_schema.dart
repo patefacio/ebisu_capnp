@@ -1,6 +1,7 @@
 library ebisu_capnp.capnp_schema;
 
 import 'package:ebisu/ebisu.dart';
+import 'package:id/id.dart';
 
 // custom <additional imports>
 // end <additional imports>
@@ -22,5 +23,3 @@ part 'src/capnp_schema/using.dart';
 
 // custom <library capnp_schema>
 // end <library capnp_schema>
-
-

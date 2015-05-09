@@ -1,7 +1,6 @@
 part of ebisu_capnp.capnp_schema;
 
 class Schema {
-
   List<Interface> interfaces;
   List<Struct> structs;
   List<Constant> constants;
@@ -13,4 +12,3 @@ class Schema {
 
 // custom <part schema>
 // end <part schema>
-

@@ -1,20 +1,20 @@
 part of ebisu_capnp.capnp_schema;
 
 enum BuiltIn {
-voidT,
-boolT,
-int8T,
-int16T,
-int32T,
-int64T,
-uint8T,
-uint16T,
-uint32T,
-uint64T,
-float32T,
-float64T,
-blobT,
-listT
+  voidT,
+  boolT,
+  int8T,
+  int16T,
+  int32T,
+  int64T,
+  uint8T,
+  uint16T,
+  uint32T,
+  uint64T,
+  float32T,
+  float64T,
+  blobT,
+  listT
 }
 /// Convenient access to BuiltIn.voidT with *voidT* see [BuiltIn].
 ///
@@ -74,4 +74,3 @@ const BuiltIn listT = BuiltIn.listT;
 
 // custom <part built_in>
 // end <part built_in>
-

@@ -27,19 +27,19 @@ A library focusing on capnp modeling and enhancement
     ..pubSpec.homepage = 'https://github.com/patefacio/ebisu_capnp'
     ..doc = purpose
     ..testLibraries = [
-      library('test_built_in'),
-      library('test_enum'),
-      library('test_entity'),
-      library('test_using'),
-      library('test_struct'),
-      library('test_union'),
-      library('test_group'),
-      library('test_interface'),
-      library('test_generic'),
-      library('test_constant'),
-      library('test_import'),
-      library('test_annotation'),
-      library('test_schema'),
+      library('test_built_in')..imports = ['../lib/capnp_schema.dart'],
+      library('test_enum')..imports = ['../lib/capnp_schema.dart'],
+      library('test_entity')..imports = ['../lib/capnp_schema.dart'],
+      library('test_using')..imports = ['../lib/capnp_schema.dart'],
+      library('test_struct')..imports = ['../lib/capnp_schema.dart'],
+      library('test_union')..imports = ['../lib/capnp_schema.dart'],
+      library('test_group')..imports = ['../lib/capnp_schema.dart'],
+      library('test_interface')..imports = ['../lib/capnp_schema.dart'],
+      library('test_generic')..imports = ['../lib/capnp_schema.dart'],
+      library('test_constant')..imports = ['../lib/capnp_schema.dart'],
+      library('test_import')..imports = ['../lib/capnp_schema.dart'],
+      library('test_annotation')..imports = ['../lib/capnp_schema.dart'],
+      library('test_schema')..imports = ['../lib/capnp_schema.dart'],
     ]
     ..libraries = [
 
@@ -47,12 +47,26 @@ A library focusing on capnp modeling and enhancement
 
       library('capnp_schema')
       ..imports = [
+        'package:id/id.dart',
         'package:ebisu/ebisu.dart',
       ]
       ..parts = [
 
         part('common')
         ..classes = [
+
+          class_('definable')
+          ..isAbstract = true,
+
+          class_('referable')
+          ..isAbstract = true,
+
+          class_('namer')
+          ..isAbstract = true,
+
+          class_('default_namer')
+          ..extend = 'Namer',
+
           class_('numbered')
           ..members = [
             member('number')..type = 'int'
@@ -75,7 +89,17 @@ A library focusing on capnp modeling and enhancement
         part('entity')
         ..classes = [
           class_('capnp_entity')
-          ..extend = 'Entity',
+          ..extend = 'Entity'
+          ..members = [
+            member('id')
+            ..doc = 'The [Id] for the entity'
+            ..type = 'Id'
+            ..access = RO..isFinal = true,
+            member('namer')
+            ..type = 'Namer'
+            ..isStatic = true
+            ..classInit = 'new DefaultNamer()',
+          ],
         ],
 
         part('using')
@@ -85,12 +109,20 @@ A library focusing on capnp modeling and enhancement
 
         part('enum')
         ..classes = [
-          class_('enum_value'),
-          class_('enum')
+          class_('enum_value')
           ..extend = 'CapnpEntity'
           ..mixins = [ 'Numbered' ]
           ..members = [
-            member('values')..type = 'List<EnumValue>'..classInit = [],
+          ],
+
+          class_('enum')
+          ..extend = 'CapnpEntity'
+          ..implement = [ 'Definable', 'Referable' ]
+          ..members = [
+            member('values')
+            ..type = 'List<EnumValue>'
+            ..access = RO
+            ..classInit = [],
           ],
         ],
         part('struct')

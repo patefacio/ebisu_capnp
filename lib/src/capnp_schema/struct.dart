@@ -12,9 +12,7 @@ class Member extends CapnpEntity with Numbered {
 
 }
 
-
 class Struct extends CapnpEntity {
-
   List<Member> members = [];
   List<Struct> structs = [];
 
@@ -25,4 +23,3 @@ class Struct extends CapnpEntity {
 
 // custom <part struct>
 // end <part struct>
-

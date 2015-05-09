@@ -39,4 +39,3 @@ main() {
   test_annotation.main();
   test_schema.main();
 }
-

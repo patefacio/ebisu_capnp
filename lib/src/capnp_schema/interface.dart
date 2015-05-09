@@ -7,9 +7,7 @@ class MethodDecl {
 
 }
 
-
 class Method extends CapnpEntity with Numbered {
-
   MethodDecl methodDecl;
 
   // custom <class Method>
@@ -17,9 +15,7 @@ class Method extends CapnpEntity with Numbered {
 
 }
 
-
 class Interface extends CapnpEntity {
-
   List<Interface> extend = [];
   List<Method> methods = [];
 
@@ -30,4 +26,3 @@ class Interface extends CapnpEntity {
 
 // custom <part interface>
 // end <part interface>
-
