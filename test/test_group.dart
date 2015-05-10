@@ -3,7 +3,7 @@ library ebisu_capnp.test_group;
 import '../lib/capnp_schema.dart';
 import 'package:args/args.dart';
 import 'package:logging/logging.dart';
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 // custom <additional imports>
 // end <additional imports>

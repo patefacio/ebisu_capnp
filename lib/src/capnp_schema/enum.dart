@@ -8,7 +8,8 @@ class EnumValue extends CapnpEntity with Numbered {
     number = number_;
   }
 
-  get definition => brCompact(['$name @$number;', indentBlock(docComment),]);
+  get definition =>
+      brCompact(['$name @$number;', indentBlock(this.docComment),]);
 
   get name => CapnpEntity.namer.nameEnumValue(id);
 
@@ -25,7 +26,7 @@ class Enum extends CapnpEntity implements Definable, Referable {
 
   get definition => brCompact([
     _opener,
-    indentBlock(docComment),
+    indentBlock(this.docComment),
     indentBlock(br(values.map((v) => v.definition), '\n', true)),
     _closer,
   ]);

@@ -33,7 +33,8 @@ class AliasUsing extends CapnpEntity implements UsingStatement {
 
   get reference => using.reference;
   get name => CapnpEntity.namer.nameAliasUsing(id);
-  get usingStatement => brCompact(['using $name = $reference;', indentBlock(docComment)]);
+  get usingStatement =>
+      brCompact(['using $name = $reference;', indentBlock(this.docComment)]);
   get definition => usingStatement;
 
   // end <class AliasUsing>

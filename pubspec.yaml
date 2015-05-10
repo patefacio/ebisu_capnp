@@ -7,19 +7,21 @@ dependencies:
 # custom <ebisu_capnp dependencies>
 
   id: "^1.0.9"
-  ebisu: "^0.3.7"
-  ebisu_cpp: "^0.2.1"
+  ebisu: "^0.5.0"
+  ebisu_cpp: "^0.3.0"
 
 # end <ebisu_capnp dependencies>
 
 dev_dependencies:
   yaml: "any"
-  unittest: ">=0.11.0 < 0.12.0"
   browser: "any"
   hop: "any"
   hop_docgen: "any"
 
 # custom <ebisu_capnp dev dependencies>
+
+  test: "^0.12.0"
+
 # end <ebisu_capnp dev dependencies>
 
 dependency_overrides:

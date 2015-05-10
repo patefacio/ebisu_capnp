@@ -1,4 +1,4 @@
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 import 'package:logging/logging.dart';
 import 'test_built_in.dart' as test_built_in;
 import 'test_enum.dart' as test_enum;
