@@ -20,7 +20,7 @@ main([List<String> args]) {
 // custom <main>
 
   test('const', () {
-    final c = const_('color', ':Int32', '32');
+    final c = const_('color', int32T, '32');
     print(c.definition);
   });
 

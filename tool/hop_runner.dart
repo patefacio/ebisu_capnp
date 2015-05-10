@@ -14,7 +14,7 @@ void main(List<String> args) {
   addTask('analyze_lib', createAnalyzerTask(_getLibs));
   //TODO: Figure this out: addTask('docs', createDocGenTask(_getLibs));
   addTask('analyze_test', createAnalyzerTask([
-    "test/test_built_in.dart",
+    "test/test_type.dart",
     "test/test_enum.dart",
     "test/test_entity.dart",
     "test/test_using.dart",

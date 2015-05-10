@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
 import 'package:logging/logging.dart';
-import 'test_built_in.dart' as test_built_in;
+import 'test_type.dart' as test_type;
 import 'test_enum.dart' as test_enum;
 import 'test_entity.dart' as test_entity;
 import 'test_using.dart' as test_using;
@@ -25,7 +25,7 @@ main() {
     print('${rec.level.name}: ${rec.time}: ${rec.message}');
   });
 
-  test_built_in.main();
+  test_type.main();
   test_enum.main();
   test_entity.main();
   test_using.main();

@@ -1,7 +1,7 @@
 part of ebisu_capnp.capnp_schema;
 
 class Constant extends CapnpEntity implements Definable, Referable {
-  String get type => _type;
+  Typed get type => _type;
   String get value => _value;
 
   // custom <class Constant>
@@ -17,7 +17,7 @@ class Constant extends CapnpEntity implements Definable, Referable {
 
   // end <class Constant>
 
-  String _type;
+  Typed _type;
   String _value;
 }
 

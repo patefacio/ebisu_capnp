@@ -38,7 +38,7 @@ A library focusing on capnp modeling and enhancement
     ..pubSpec.homepage = 'https://github.com/patefacio/ebisu_capnp'
     ..doc = purpose
     ..testLibraries = [
-      library('test_built_in')..imports = ['../lib/capnp_schema.dart'],
+      library('test_type')..imports = ['../lib/capnp_schema.dart'],
       library('test_enum')..imports = ['../lib/capnp_schema.dart'],
       library('test_entity')..imports = ['../lib/capnp_schema.dart'],
       library('test_using')..imports = ['../lib/capnp_schema.dart'],
@@ -94,18 +94,23 @@ A library focusing on capnp modeling and enhancement
                   final constVar = idFromString(builtIn).camel;
                   final typeClassId = idFromString('idl_$base');
                   final typeClass = class_(typeClassId)
+                    ..doc = 'Built in type for *${baseId.capCamel}*'
                     ..extend = 'BuiltInType'
+                    ..includesCustom = false
                     ..withCustomBlock((CodeBlock cb) {
                       cb
-                        ..tag = null
                         ..snippets.add('''
-get type => ':${baseId.capCamel}';
+const ${typeClassId.capCamel}();
+String get type => ':${baseId.capCamel}';
 BuiltIn get builtInType => BuiltIn.$constVar;
 ''');
                     });
                   return '''
 ${chomp(typeClass.definition, true)}
 
+/// Single instance of ${baseId.capCamel} type
+///
+/// Use this to specify *$base* IDL types when modeling
 const $constVar = const ${typeClassId.capCamel}();
 ''';
                 })));
@@ -115,13 +120,28 @@ const $constVar = const ${typeClassId.capCamel}();
           ..values = builtIns
         ]
         ..classes = [
-          class_('typed')..doc = 'A *capnp* *IDL* type'
-          ..isAbstract = true,
+
+          class_('typed')
+          ..doc = 'Establishes base class for *capnp* *IDL* types'
+          ..isAbstract = true
+          ..includesCustom = false
+          ..withCustomBlock((CodeBlock cb) {
+            cb.snippets.add('''
+const Typed();
+String get type;
+''');
+          }),
 
           class_('built_in_type')
+          ..doc = 'Establishes a base type for *capnp* *IDL* built-ins'
+          ..isAbstract = true
+          ..includesCustom = false
           ..extend = 'Typed'
           ..withCustomBlock((CodeBlock cb) {
-            cb.snippets.add('BuiltIn get builtInType;');
+            cb.snippets.add('''
+const BuiltInType();
+BuiltIn get builtInType;
+''');
           }),
         ],
 
@@ -224,7 +244,7 @@ const $constVar = const ${typeClassId.capCamel}();
           ..extend = 'CapnpEntity'
           ..implement = [ 'Definable', 'Referable' ]
           ..members = [
-            member('type')..access = RO,
+            member('type')..access = RO..type = 'Typed',
             member('value')..access = RO,
           ]
         ],
