@@ -28,6 +28,7 @@ abstract class Namer {
   String nameEnumValue(Id id);
   String nameStruct(Id id);
   String nameAliasUsing(Id id);
+  String nameConst(Id id);
 
   // end <class Namer>
 
@@ -38,9 +39,10 @@ class DefaultNamer extends Namer {
   // custom <class DefaultNamer>
 
   String nameEnum(Id id) => id.capCamel;
-  String nameEnumValue(Id id) => '${id.capCamel}_e';
+  String nameEnumValue(Id id) => '${id.capSnake}_e';
   String nameStruct(Id id) => id.capCamel;
-  String nameAliasUsing(Id id) => '${id.capCamel}_t';
+  String nameAliasUsing(Id id) => '${id.capSnake}_t';
+  String nameConst(Id id) => '${id.snake}';
 
   // end <class DefaultNamer>
 

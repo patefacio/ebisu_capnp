@@ -1,5 +1,6 @@
 import "dart:io";
 import "package:path/path.dart" as path;
+import "package:id/id.dart";
 import "package:ebisu/ebisu.dart";
 import "package:ebisu/ebisu_dart_meta.dart";
 import "package:logging/logging.dart";
@@ -17,6 +18,16 @@ void main() {
   final purpose = '''
 A library focusing on capnp modeling and enhancement
 ''';
+
+  final builtIns = [
+    'void_t',
+    'bool_t',
+    'int8_t', 'int16_t', 'int32_t', 'int64_t',
+    'u_int8_t', 'u_int16_t', 'u_int32_t', 'u_int64_t',
+    'float32_t', 'float64_t',
+    'text_t', 'data_t',
+    'list_t',
+  ];
 
   _topDir = path.dirname(path.dirname(here));
   useDartFormatter = true;
@@ -73,20 +84,47 @@ A library focusing on capnp modeling and enhancement
             member('number')..type = 'int'
           ],
         ],
-        part('built_in')
+
+        part('type')
+        ..withCustomBlock((CodeBlock cb) {
+          cb.snippets.add(
+              br(builtIns.map((var builtIn) {
+                  final base = builtIn.replaceAll('_t', '');
+                  final baseId = idFromString(base);
+                  final constVar = idFromString(builtIn).camel;
+                  final typeClassId = idFromString('idl_$base');
+                  final typeClass = class_(typeClassId)
+                    ..extend = 'BuiltInType'
+                    ..withCustomBlock((CodeBlock cb) {
+                      cb
+                        ..tag = null
+                        ..snippets.add('''
+get type => ':${baseId.capCamel}';
+BuiltIn get builtInType => BuiltIn.$constVar;
+''');
+                    });
+                  return '''
+${chomp(typeClass.definition, true)}
+
+const $constVar = const ${typeClassId.capCamel}();
+''';
+                })));
+        })
         ..enums = [
           enum_('built_in')
-          ..hasLibraryScopedValues = true
-          ..values = [
-            'void_t',
-            'bool_t',
-            'int8_t', 'int16_t', 'int32_t', 'int64_t',
-            'uint8_t', 'uint16_t', 'uint32_t', 'uint64_t',
-            'float32_t', 'float64_t',
-            'blob_t',
-            'list_t',
-          ]
+          ..values = builtIns
+        ]
+        ..classes = [
+          class_('typed')..doc = 'A *capnp* *IDL* type'
+          ..isAbstract = true,
+
+          class_('built_in_type')
+          ..extend = 'Typed'
+          ..withCustomBlock((CodeBlock cb) {
+            cb.snippets.add('BuiltIn get builtInType;');
+          }),
         ],
+
         part('entity')
         ..classes = [
           class_('capnp_entity')
@@ -179,14 +217,18 @@ A library focusing on capnp modeling and enhancement
           ]
         ],
         part('generic'),
+
         part('constant')
         ..classes = [
           class_('constant')
+          ..extend = 'CapnpEntity'
+          ..implement = [ 'Definable', 'Referable' ]
           ..members = [
-            member('type'),
-            member('value'),
+            member('type')..access = RO,
+            member('value')..access = RO,
           ]
         ],
+
         part('import'),
         part('annotation'),
         part('schema')

@@ -18,6 +18,12 @@ main([List<String> args]) {
       (LogRecord r) => print("${r.loggerName} [${r.level}]:\t${r.message}"));
   Logger.root.level = Level.OFF;
 // custom <main>
+
+  test('const', () {
+    final c = const_('color', ':Int32', '32');
+    print(c.definition);
+  });
+
 // end <main>
 
 }
