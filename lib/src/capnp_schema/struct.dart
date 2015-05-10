@@ -1,12 +1,12 @@
 part of ebisu_capnp.capnp_schema;
 
 class Member extends CapnpEntity with Numbered {
-
-  /// Represents the name
-  String id;
   String type;
 
   // custom <class Member>
+  Member(id) : super(id);
+  Iterable<Entity> get children => new Iterable<Entity>.generate(0);
+
   // end <class Member>
 
 }
@@ -16,6 +16,9 @@ class Struct extends CapnpEntity {
   List<Struct> structs = [];
 
   // custom <class Struct>
+  Struct(id) : super(id);
+  Iterable<Entity> get children => new Iterable<Entity>.generate(0);
+
   // end <class Struct>
 
 }

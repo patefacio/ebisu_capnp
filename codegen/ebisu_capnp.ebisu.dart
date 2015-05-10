@@ -148,6 +148,7 @@ BuiltIn get builtInType;
         part('entity')
         ..classes = [
           class_('capnp_entity')
+          ..isAbstract = true
           ..extend = 'Entity'
           ..members = [
             member('id')
@@ -203,8 +204,6 @@ BuiltIn get builtInType;
           ..extend = 'CapnpEntity'
           ..mixins = [ 'Numbered' ]
           ..members = [
-            member('id')
-            ..doc = 'Represents the name',
             member('type'),
           ],
           class_('struct')

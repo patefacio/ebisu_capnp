@@ -1,6 +1,6 @@
 part of ebisu_capnp.capnp_schema;
 
-class CapnpEntity extends Entity {
+abstract class CapnpEntity extends Entity {
 
   /// The [Id] for the entity
   Id get id => _id;

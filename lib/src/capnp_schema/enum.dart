@@ -8,6 +8,8 @@ class EnumValue extends CapnpEntity with Numbered {
     number = number_;
   }
 
+  Iterable<Entity> get children => new Iterable<Entity>.generate(0);
+
   get definition =>
       brCompact(['$name @$number;', indentBlock(this.docComment),]);
 
@@ -23,6 +25,10 @@ class Enum extends CapnpEntity implements Definable, Referable {
   // custom <class Enum>
 
   Enum(id) : super(id);
+
+  Iterable<Entity> get children => _values;
+
+  get reference => throw 'TBD';
 
   get definition => brCompact([
     _opener,

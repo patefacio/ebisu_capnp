@@ -14,6 +14,7 @@ class Using implements Definable, UsingStatement {
 
   Using(this._reference);
 
+  Iterable<Entity> get children => new Iterable<Entity>.generate(0);
   get usingStatement => 'using $reference;';
   get definition => usingStatement;
 
@@ -31,6 +32,7 @@ class AliasUsing extends CapnpEntity implements UsingStatement {
       : super(aliasId),
         _using = new Using(reference);
 
+  Iterable<Entity> get children => new Iterable<Entity>.generate(0);
   get reference => using.reference;
   get name => CapnpEntity.namer.nameAliasUsing(id);
   get usingStatement =>
