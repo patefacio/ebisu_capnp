@@ -4,7 +4,7 @@ class EnumValue extends CapnpEntity with Numbered {
 
   // custom <class EnumValue>
 
-  EnumValue(id, [number_ = 0]) : super(id) {
+  EnumValue(id, number_) : super(id) {
     number = number_;
   }
 

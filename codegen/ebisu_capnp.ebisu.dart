@@ -73,6 +73,13 @@ A library focusing on capnp modeling and enhancement
           class_('referable')
           ..isAbstract = true,
 
+          class_('reference')
+          ..implement = ['Typed']
+          ..isImmutable = true
+          ..members = [
+            member('type')..access = RO,
+          ],
+
           class_('namer')
           ..isAbstract = true,
 
@@ -198,25 +205,32 @@ BuiltIn get builtInType;
             ..classInit = [],
           ],
         ],
+
         part('struct')
         ..classes = [
+
           class_('member')
           ..extend = 'CapnpEntity'
+          ..implement = [ 'Definable', 'Referable' ]
           ..mixins = [ 'Numbered' ]
           ..members = [
-            member('type'),
+            member('type')..type = 'Typed',
           ],
+
           class_('struct')
           ..extend = 'CapnpEntity'
+          ..implement = [ 'Definable', 'Referable' ]
           ..members = [
-            member('members')..type = 'List<Member>'..classInit = [],
+            member('members')..type = 'List<Member>'..classInit = []..access = RO,
             member('structs')..type = 'List<Struct>'..classInit = [],
           ]
         ],
+
         part('union'),
         part('group'),
         part('interface')
         ..classes = [
+
           class_('method_decl')
           ..members = [
           ],

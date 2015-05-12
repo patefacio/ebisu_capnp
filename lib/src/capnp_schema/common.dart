@@ -20,6 +20,17 @@ abstract class Referable {
 
 }
 
+class Reference implements Typed {
+  const Reference(this._type);
+
+  String get type => _type;
+
+  // custom <class Reference>
+  // end <class Reference>
+
+  final String _type;
+}
+
 abstract class Namer {
 
   // custom <class Namer>
@@ -27,6 +38,7 @@ abstract class Namer {
   String nameEnum(Id id);
   String nameEnumValue(Id id);
   String nameStruct(Id id);
+  String nameMember(Id id);
   String nameAliasUsing(Id id);
   String nameConst(Id id);
 
@@ -41,6 +53,7 @@ class DefaultNamer extends Namer {
   String nameEnum(Id id) => id.capCamel;
   String nameEnumValue(Id id) => '${id.capSnake}_e';
   String nameStruct(Id id) => id.capCamel;
+  String nameMember(Id id) => id.camel;
   String nameAliasUsing(Id id) => '${id.capSnake}_t';
   String nameConst(Id id) => '${id.snake}';
 
