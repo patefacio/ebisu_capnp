@@ -25,20 +25,61 @@ class Struct extends CapnpEntity implements Definable, Referable {
 
   // custom <class Struct>
   Struct(id) : super(id);
+
   Iterable<Entity> get children => new Iterable<Entity>.generate(0);
+
   get name => CapnpEntity.namer.nameStruct(id);
-  get definition => '''
+
+  /// Return the definition of the struct in IDL format
+  get definition {
+    final unionsVisited = new Set();
+    final result = '''
 struct $name {
-${indentBlock(brCompact(members.map((m) => m.definition)))}
+${indentBlock(brCompact(_members.map((m) => _pullMember(m, unionsVisited))))}
 }
 ''';
+    return result;
+  }
 
+  /// Pull the member definition from the struct.
+  ///
+  /// If the member is in a union, pull in the entire union and mark that union
+  /// as visited.
+  String _pullMember(Member m, Set unionsVisited) {
+    if (m.union != null) {
+      if (!unionsVisited.contains(m.union)) {
+        unionsVisited.add(m.union);
+        return _pullUnion(m.union);
+      }
+      return null;
+    }
+    return m.definition;
+  }
+
+  /// Pull the members of a given union out as a *union*
+  String _pullUnion(String union) => brCompact([
+    br(['union', union == '' ? null : union, '{'], ' '),
+    indentBlock(brCompact(
+        _members.where((m) => m.union == union).map((m) => m.definition))),
+    '}'
+  ]);
+
+  /// Set the members
+  ///
+  /// Supports elements of type [Member] and [String]
+  /// If [String] is provided as a member the format is:
+  ///
+  ///  - 'NAME NUMBER' e.g. 'Foo 1' or 'Foo @1'
+  ///  - 'NAME NUMBER TYPE' e.g. 'Foo 1 :Text'
   set members(members_) => _members =
       enumerate(members_).map((m) => _makeMember(m.value, m.index)).toList();
 
-  unionize(Iterable<dynamic> fieldIds, [ String unionName = '']) =>
-    fieldIds.map((id) => makeId(id))
-    .forEach((id) => members.firstWhere((m) => id == m.id).union = unionName);
+  /// Group the [fieldIds] together as a union named [unionName]
+  ///
+  /// No name provided indicates an anonymous union
+  unionize(Iterable<dynamic> fieldIds, [String unionName = '']) => fieldIds
+      .map((id) => makeId(id))
+      .forEach((id) => members.firstWhere((m) => id == m.id).union = unionName);
 
   final RegExp _whiteSpace = new RegExp(r'\s+');
 
