@@ -2,6 +2,10 @@ part of ebisu_capnp.capnp_schema;
 
 class Member extends CapnpEntity with Numbered implements Definable, Referable {
   Typed type;
+  /// If present, the union it belongs to.
+  ///
+  /// For an anonymous union use empty string ""
+  String union;
 
   // custom <class Member>
   Member(id, int number_, [this.type = int32T]) : super(id) {
@@ -31,6 +35,10 @@ ${indentBlock(brCompact(members.map((m) => m.definition)))}
 
   set members(members_) => _members =
       enumerate(members_).map((m) => _makeMember(m.value, m.index)).toList();
+
+  unionize(Iterable<dynamic> fieldIds, [ String unionName = '']) =>
+    fieldIds.map((id) => makeId(id))
+    .forEach((id) => members.firstWhere((m) => id == m.id).union = unionName);
 
   final RegExp _whiteSpace = new RegExp(r'\s+');
 

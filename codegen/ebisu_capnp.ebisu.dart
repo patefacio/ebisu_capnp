@@ -215,6 +215,11 @@ BuiltIn get builtInType;
           ..mixins = [ 'Numbered' ]
           ..members = [
             member('type')..type = 'Typed',
+            member('union')..doc = '''
+If present, the union it belongs to.
+
+For an anonymous union use empty string ""
+''',
           ],
 
           class_('struct')
@@ -226,7 +231,15 @@ BuiltIn get builtInType;
           ]
         ],
 
-        part('union'),
+        part('union')
+        ..classes = [
+          class_('union')
+          ..members = [
+            member('name')..doc = 'Name of union or null if anonymous',
+            member('members')..type = 'List<Member>'..classInit = []..access = RO,
+          ]
+        ],
+
         part('group'),
         part('interface')
         ..classes = [
