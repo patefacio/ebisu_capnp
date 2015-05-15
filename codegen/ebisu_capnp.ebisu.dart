@@ -220,6 +220,7 @@ If present, the union it belongs to.
 
 For an anonymous union use empty string ""
 ''',
+            member('default_value')..type = 'dynamic'..access = RO,
           ],
 
           class_('struct')
@@ -241,6 +242,7 @@ For an anonymous union use empty string ""
         ],
 
         part('group'),
+
         part('interface')
         ..classes = [
 

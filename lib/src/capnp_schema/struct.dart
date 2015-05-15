@@ -6,6 +6,7 @@ class Member extends CapnpEntity with Numbered implements Definable, Referable {
   ///
   /// For an anonymous union use empty string ""
   String union;
+  dynamic get defaultValue => _defaultValue;
 
   // custom <class Member>
   Member(id, int number_, [this.type = int32T]) : super(id) {
@@ -13,10 +14,27 @@ class Member extends CapnpEntity with Numbered implements Definable, Referable {
   }
   Iterable<Entity> get children => new Iterable<Entity>.generate(0);
   get name => CapnpEntity.namer.nameMember(id);
-  get definition => '$name @$number ${type.type};';
+  get definition =>
+      combine([name, '@$number', type.type, _defaultAssign], ' ') + ';';
+
+  set defaultValue(defaultValue_) {
+    if (type == null) {
+      type = defaultValue_ is String
+          ? 'textT'
+          : defaultValue_ is int
+              ? 'int32T'
+              : defaultValue_ is double
+                  ? 'float64T'
+                  : defaultValue_ is List ? 'listT' : type;
+    }
+    _defaultValue = type is String ? smartQuote(defaultValue_) : defaultValue_;
+  }
+
+  get _defaultAssign => _defaultValue != null ? '= $_defaultValue' : null;
 
   // end <class Member>
 
+  dynamic _defaultValue;
 }
 
 class Struct extends CapnpEntity implements Definable, Referable {

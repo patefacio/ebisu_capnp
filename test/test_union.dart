@@ -69,8 +69,6 @@ struct S {
 '''));
   });
 
-
-
 // end <main>
 
 }

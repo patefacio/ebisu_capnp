@@ -53,6 +53,19 @@ main([List<String> args]) {
       expect(darkMatter(s.definition),
           darkMatter('struct S{ m1 @1 :Int32; m2 @42 :Text; m3 @43 :Text;}'));
     });
+
+    test('struct member supports default values', () {
+      var s = struct('s')
+        ..members = [
+          member('m1', 1)..defaultValue = 32,
+          member('m2', 2)..defaultValue = [1, 2, 3],
+        ];
+      expect(darkMatter(s.definition), darkMatter('''
+struct S {
+  m1 @1 :Int32 = 32;
+  m2 @2 :Int32 = [1, 2, 3];
+}'''));
+    });
   });
 
 // end <main>
