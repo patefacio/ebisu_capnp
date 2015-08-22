@@ -1,7 +1,6 @@
 part of ebisu_capnp.capnp_schema;
 
 abstract class UsingStatement {
-
   // custom <class UsingStatement>
   // end <class UsingStatement>
 

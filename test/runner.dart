@@ -1,4 +1,3 @@
-import 'package:test/test.dart';
 import 'package:logging/logging.dart';
 import 'test_type.dart' as test_type;
 import 'test_enum.dart' as test_enum;
@@ -13,11 +12,6 @@ import 'test_constant.dart' as test_constant;
 import 'test_import.dart' as test_import;
 import 'test_annotation.dart' as test_annotation;
 import 'test_schema.dart' as test_schema;
-
-void testCore(Configuration config) {
-  unittestConfiguration = config;
-  main();
-}
 
 main() {
   Logger.root.level = Level.OFF;

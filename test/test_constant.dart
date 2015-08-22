@@ -1,7 +1,6 @@
 library ebisu_capnp.test_constant;
 
 import '../lib/capnp_schema.dart';
-import 'package:args/args.dart';
 import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 
@@ -25,5 +24,4 @@ main([List<String> args]) {
   });
 
 // end <main>
-
 }

@@ -1,7 +1,6 @@
 library ebisu_capnp.test_using;
 
 import '../lib/capnp_schema.dart';
-import 'package:args/args.dart';
 import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 
@@ -27,12 +26,15 @@ main([List<String> args]) {
 
   test('AliasUsing', () {
     final au = new AliasUsing('foobar', 'Foo.Bar')..doc = 'Confusing';
-    expect(darkSame(au.definition, '''
+    expect(
+        darkSame(
+            au.definition,
+            '''
 using Foobar_t = Foo.Bar;
   #  Confusing
-'''), true);
+'''),
+        true);
   });
 
 // end <main>
-
 }

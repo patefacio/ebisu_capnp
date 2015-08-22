@@ -1,7 +1,6 @@
 part of ebisu_capnp.capnp_schema;
 
 abstract class Definable {
-
   // custom <class Definable>
 
   String get definition;
@@ -11,7 +10,6 @@ abstract class Definable {
 }
 
 abstract class Referable {
-
   // custom <class Referable>
 
   String get reference;
@@ -32,7 +30,6 @@ class Reference implements Typed {
 }
 
 abstract class Namer {
-
   // custom <class Namer>
 
   String nameEnum(Id id);
@@ -47,7 +44,6 @@ abstract class Namer {
 }
 
 class DefaultNamer extends Namer {
-
   // custom <class DefaultNamer>
 
   String nameEnum(Id id) => id.capCamel;

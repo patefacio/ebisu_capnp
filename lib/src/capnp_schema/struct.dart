@@ -2,6 +2,7 @@ part of ebisu_capnp.capnp_schema;
 
 class Member extends CapnpEntity with Numbered implements Definable, Referable {
   Typed type;
+
   /// If present, the union it belongs to.
   ///
   /// For an anonymous union use empty string ""
@@ -76,11 +77,11 @@ ${indentBlock(brCompact(_members.map((m) => _pullMember(m, unionsVisited))))}
 
   /// Pull the members of a given union out as a *union*
   String _pullUnion(String union) => brCompact([
-    br(['union', union == '' ? null : union, '{'], ' '),
-    indentBlock(brCompact(
-        _members.where((m) => m.union == union).map((m) => m.definition))),
-    '}'
-  ]);
+        br(['union', union == '' ? null : union, '{'], ' '),
+        indentBlock(brCompact(
+            _members.where((m) => m.union == union).map((m) => m.definition))),
+        '}'
+      ]);
 
   /// Set the members
   ///

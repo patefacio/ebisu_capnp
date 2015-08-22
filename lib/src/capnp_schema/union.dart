@@ -1,7 +1,6 @@
 part of ebisu_capnp.capnp_schema;
 
 class Union {
-
   /// Name of union or null if anonymous
   String name;
   List<Member> get members => _members;

@@ -1,7 +1,6 @@
 part of ebisu_capnp.capnp_schema;
 
 class MethodDecl {
-
   // custom <class MethodDecl>
   // end <class MethodDecl>
 

@@ -103,7 +103,7 @@ A library focusing on capnp modeling and enhancement
                   final typeClass = class_(typeClassId)
                     ..doc = 'Built in type for *${baseId.capCamel}*'
                     ..extend = 'BuiltInType'
-                    ..includesCustom = false
+                    ..includesProtectBlock = false
                     ..withCustomBlock((CodeBlock cb) {
                       cb
                         ..snippets.add('''
@@ -131,7 +131,7 @@ const $constVar = const ${typeClassId.capCamel}();
           class_('typed')
           ..doc = 'Establishes base class for *capnp* *IDL* types'
           ..isAbstract = true
-          ..includesCustom = false
+          ..includesProtectBlock = false
           ..withCustomBlock((CodeBlock cb) {
             cb.snippets.add('''
 const Typed();
@@ -142,7 +142,7 @@ String get type;
           class_('built_in_type')
           ..doc = 'Establishes a base type for *capnp* *IDL* built-ins'
           ..isAbstract = true
-          ..includesCustom = false
+          ..includesProtectBlock = false
           ..extend = 'Typed'
           ..withCustomBlock((CodeBlock cb) {
             cb.snippets.add('''

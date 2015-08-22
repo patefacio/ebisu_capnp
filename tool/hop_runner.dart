@@ -13,21 +13,23 @@ void main(List<String> args) {
 
   addTask('analyze_lib', createAnalyzerTask(_getLibs));
   //TODO: Figure this out: addTask('docs', createDocGenTask(_getLibs));
-  addTask('analyze_test', createAnalyzerTask([
-    "test/test_type.dart",
-    "test/test_enum.dart",
-    "test/test_entity.dart",
-    "test/test_using.dart",
-    "test/test_struct.dart",
-    "test/test_union.dart",
-    "test/test_group.dart",
-    "test/test_interface.dart",
-    "test/test_generic.dart",
-    "test/test_constant.dart",
-    "test/test_import.dart",
-    "test/test_annotation.dart",
-    "test/test_schema.dart"
-  ]));
+  addTask(
+      'analyze_test',
+      createAnalyzerTask([
+        "test/test_type.dart",
+        "test/test_enum.dart",
+        "test/test_entity.dart",
+        "test/test_using.dart",
+        "test/test_struct.dart",
+        "test/test_union.dart",
+        "test/test_group.dart",
+        "test/test_interface.dart",
+        "test/test_generic.dart",
+        "test/test_constant.dart",
+        "test/test_import.dart",
+        "test/test_annotation.dart",
+        "test/test_schema.dart"
+      ]));
 
   runHop(args);
 }

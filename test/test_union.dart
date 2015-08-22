@@ -1,7 +1,6 @@
 library ebisu_capnp.test_union;
 
 import '../lib/capnp_schema.dart';
-import 'package:args/args.dart';
 import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 
@@ -39,6 +38,7 @@ struct S {
   test('allows only one anonymous union', () {
     var s = struct('s')..members = ['m1 1', 'm2 42 :Text', 'm3 @43 :Text'];
     s.unionize(['m1', 'm3']);
+
     /// Note: The following has no effect as m1 is already in the anonymous union
     s.unionize(['m1']);
     expect(darkMatter(s.definition), darkMatter('''
@@ -70,5 +70,4 @@ struct S {
   });
 
 // end <main>
-
 }

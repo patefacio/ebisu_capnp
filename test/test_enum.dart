@@ -1,7 +1,6 @@
 library ebisu_capnp.test_enum;
 
 import '../lib/capnp_schema.dart';
-import 'package:args/args.dart';
 import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 
@@ -27,14 +26,18 @@ main([List<String> args]) {
       ..doc = 'Establishes the beest colors'
       ..values = ['red', 'green', 'blue'];
 
-    expect(darkSame(e.definition, '''
+    expect(
+        darkSame(
+            e.definition,
+            '''
 enum Color {
   #  Establishes the beest colors
   Red_e @0;
   Green_e @1;
   Blue_e @2;
 }
-'''), true);
+'''),
+        true);
   });
 
   test('enum definition - managed indices', () {
@@ -46,7 +49,10 @@ enum Color {
         enumValue('blue', 9)..doc = 'The color of the sky',
       ];
 
-    expect(darkSame(e.definition, '''
+    expect(
+        darkSame(
+            e.definition,
+            '''
 enum Color {
   #  Establishes the beest colors
   Red_e @3;
@@ -56,9 +62,9 @@ enum Color {
   Blue_e @9;
     #  The color of the sky
 }
-'''), true);
+'''),
+        true);
   });
 
 // end <main>
-
 }

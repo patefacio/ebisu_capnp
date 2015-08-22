@@ -1,7 +1,6 @@
 part of ebisu_capnp.capnp_schema;
 
 class EnumValue extends CapnpEntity with Numbered {
-
   // custom <class EnumValue>
 
   EnumValue(id, number_) : super(id) {
@@ -31,11 +30,11 @@ class Enum extends CapnpEntity implements Definable, Referable {
   get reference => throw 'TBD';
 
   get definition => brCompact([
-    _opener,
-    indentBlock(this.docComment),
-    indentBlock(br(values.map((v) => v.definition), '\n', true)),
-    _closer,
-  ]);
+        _opener,
+        indentBlock(this.docComment),
+        indentBlock(br(values.map((v) => v.definition), '\n', true)),
+        _closer,
+      ]);
 
   get name => CapnpEntity.namer.nameEnum(id);
 

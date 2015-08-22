@@ -1,7 +1,6 @@
 library ebisu_capnp.test_schema;
 
 import '../lib/capnp_schema.dart';
-import 'package:args/args.dart';
 import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 
@@ -19,5 +18,4 @@ main([List<String> args]) {
   Logger.root.level = Level.OFF;
 // custom <main>
 // end <main>
-
 }
