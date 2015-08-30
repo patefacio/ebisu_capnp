@@ -2,6 +2,7 @@ library ebisu_capnp.capnp_schema;
 
 import 'package:ebisu/ebisu.dart';
 import 'package:id/id.dart';
+import 'package:petitparser/petitparser.dart';
 import 'package:quiver/iterables.dart';
 
 // custom <additional imports>
@@ -16,6 +17,7 @@ part 'src/capnp_schema/generic.dart';
 part 'src/capnp_schema/group.dart';
 part 'src/capnp_schema/import.dart';
 part 'src/capnp_schema/interface.dart';
+part 'src/capnp_schema/parser.dart';
 part 'src/capnp_schema/schema.dart';
 part 'src/capnp_schema/struct.dart';
 part 'src/capnp_schema/type.dart';

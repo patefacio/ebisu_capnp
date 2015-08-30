@@ -12,6 +12,7 @@ import 'test_constant.dart' as test_constant;
 import 'test_import.dart' as test_import;
 import 'test_annotation.dart' as test_annotation;
 import 'test_schema.dart' as test_schema;
+import 'test_parser.dart' as test_parser;
 
 main() {
   Logger.root.level = Level.OFF;
@@ -32,4 +33,5 @@ main() {
   test_import.main();
   test_annotation.main();
   test_schema.main();
+  test_parser.main();
 }

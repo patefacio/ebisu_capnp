@@ -7,7 +7,7 @@ dependencies:
 # custom <ebisu_capnp dependencies>
 
   id: "^1.0.9"
-  ebisu: "^0.5.1"
+  ebisu: "^0.6.5"
   ebisu_cpp: "^0.3.0"
 
 # end <ebisu_capnp dependencies>

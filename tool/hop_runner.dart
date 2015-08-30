@@ -28,7 +28,8 @@ void main(List<String> args) {
         "test/test_constant.dart",
         "test/test_import.dart",
         "test/test_annotation.dart",
-        "test/test_schema.dart"
+        "test/test_schema.dart",
+        "test/test_parser.dart"
       ]));
 
   runHop(args);
