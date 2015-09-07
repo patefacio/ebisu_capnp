@@ -5,6 +5,9 @@ import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 
 // custom <additional imports>
+
+import 'package:ebisu_capnp/capnp_parser.dart';
+
 // end <additional imports>
 
 final _logger = new Logger('test_parser');
@@ -20,7 +23,13 @@ main([List<String> args]) {
 
   test('parse basic schema', () {
     final parser = new CapnpParser();
-    print(parser.accept('foo'));
+    print(parser.accept('''
+struct foo {
+
+  abce defg
+
+}
+'''));
   });
 
 // end <main>

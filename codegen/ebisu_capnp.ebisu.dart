@@ -57,12 +57,32 @@ A library focusing on capnp modeling and enhancement
 
       library('capnp_generation'),
 
+      library('capnp_parser')
+      ..imports = [
+        'package:petitparser/petitparser.dart',
+      ]
+      ..parts = [
+        part('parser')
+        ..classes = [
+          class_('capnp_grammar')
+          ..extend = 'GrammarParser',
+
+          class_('capnp_grammar_definition')
+          ..extend = 'GrammarDefinition',
+
+          class_('capnp_parser')
+          ..extend = 'GrammarParser',
+
+          class_('capnp_parser_definition')
+          ..extend = 'CapnpGrammarDefinition',
+        ],
+      ],
+
       library('capnp_schema')
       ..imports = [
         'package:id/id.dart',
         'package:ebisu/ebisu.dart',
         'package:quiver/iterables.dart',
-        'package:petitparser/petitparser.dart',
       ]
       ..parts = [
 
@@ -281,21 +301,6 @@ For an anonymous union use empty string ""
 
         part('import'),
         part('annotation'),
-        part('parser')
-        ..classes = [
-          class_('capnp_grammar')
-          ..extend = 'GrammarParser',
-
-          class_('capnp_grammar_definition')
-          ..extend = 'GrammarDefinition',
-
-          class_('capnp_parser')
-          ..extend = 'GrammarParser',
-
-          class_('capnp_parser_definition')
-          ..extend = 'CapnpGrammarDefinition',
-        ],
-
         part('schema')
         ..classes = [
           class_('schema')
