@@ -40,6 +40,10 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(enumMember).star() &
       ref(token, '}');
 
+  method() => ref(token, identifier) &
+    ref(token, numberAttribute) &
+    ref(token, string('->'));
+
   structMember() => ref(token, identifier) &
       ref(token, numberAttribute) &
       ref(token, typeSpecifier);
@@ -48,7 +52,7 @@ class CapnpGrammarDefinition extends GrammarDefinition {
 
   enumMember() => ref(token, identifier);
   structEntry() => ref(structDefinition) | ref(structMember) | ref(enumMember);
-  topLevelEntry() => ref(structDefinition) | ref(enumDefinition);
+  topLevelEntry() => ref(structDefinition) | ref(enumDefinition) | ref(method);
   typeSpecifier() => char(':') & ref(identifier);
 
   identifier() => letter() & word().star();
@@ -69,7 +73,7 @@ class CapnpGrammarDefinition extends GrammarDefinition {
   WHITESPACE() => whitespace();
 
   SINGLE_LINE_COMMENT() =>
-      string('//') & ref(NEWLINE).neg().star() & ref(NEWLINE).optional();
+      string('#') & ref(NEWLINE).neg().star() & ref(NEWLINE).optional();
 
   MULTI_LINE_COMMENT() => string('/*') &
       (ref(MULTI_LINE_COMMENT) | string('*/').neg()).star() &

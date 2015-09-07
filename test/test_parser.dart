@@ -23,20 +23,31 @@ main([List<String> args]) {
 
   test('parse basic schema', () {
     final parser = new CapnpParser();
-    print(parser.accept('''
+
+    final snippets = {
+      'empty' : '',
+
+      'struct': '''
 struct foo {
 
   abce @1 :int
 
 }
-'''));
+''',
 
-    print(parser.accept('''
-enum foo {
+      'enum': '''
+enum foo { # bam
+# bam
 }
-'''));
+''',
+      'method': '''
+foo @1 -> x
+'''
+    };
 
-    print(parser.accept(''));
+    snippets.forEach((tag, text) {
+      print('$tag -> ${parser.accept(text)}');
+    });
 
   });
 
