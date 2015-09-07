@@ -26,7 +26,7 @@ class CapnpGrammarDefinition extends GrammarDefinition {
     return input.token().trim(ref(HIDDEN));
   }
 
-  start() => (ref(structDefinition) | ref(enumDefinition))/* | any().star()*/ .end();
+  start() => ref(topLevelEntry).star().end();
 
   structDefinition() => ref(STRUCT) &
       ref(token, identifier) &
@@ -35,14 +35,21 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(token, '}');
 
   enumDefinition() => ref(ENUM) &
-    ref(token, identifier) &
-    ref(token, '{') &
-    ref(enumMember).star() &
-    ref(token, '}');
+      ref(token, identifier) &
+      ref(token, '{') &
+      ref(enumMember).star() &
+      ref(token, '}');
 
-  structMember() => ref(token, identifier);
+  structMember() => ref(token, identifier) &
+      ref(token, numberAttribute) &
+      ref(token, typeSpecifier);
+
+  numberAttribute() => char('@') & ref(digit).plus();
+
   enumMember() => ref(token, identifier);
-  structEntry() => ref(structMember) | ref(enumMember) | ref(structDefinition);
+  structEntry() => ref(structDefinition) | ref(structMember) | ref(enumMember);
+  topLevelEntry() => ref(structDefinition) | ref(enumDefinition);
+  typeSpecifier() => char(':') & ref(identifier);
 
   identifier() => letter() & word().star();
 

@@ -26,7 +26,7 @@ main([List<String> args]) {
     print(parser.accept('''
 struct foo {
 
-  abce defg
+  abce @1 :int
 
 }
 '''));
@@ -35,6 +35,8 @@ struct foo {
 enum foo {
 }
 '''));
+
+    print(parser.accept(''));
 
   });
 
