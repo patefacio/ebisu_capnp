@@ -30,6 +30,12 @@ struct foo {
 
 }
 '''));
+
+    print(parser.accept('''
+enum foo {
+}
+'''));
+
   });
 
 // end <main>
