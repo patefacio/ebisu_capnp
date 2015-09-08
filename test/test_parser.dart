@@ -42,7 +42,10 @@ enum foo { # bam
 ''',
       'method': '''
 foo @1 -> x
-'''
+''',
+
+      'using = name' : 'using T = Foo',
+      'using = qualifiedName' : 'using T = Foo.Bar',
     };
 
     snippets.forEach((tag, text) {

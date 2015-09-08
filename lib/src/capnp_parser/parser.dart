@@ -40,9 +40,14 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(enumMember).star() &
       ref(token, '}');
 
+  usingStatement() =>
+      ref(USING) & ref(token, identifier) & ref(token, '=') & ref(scopeName);
+
+  scopeName() => ref(qualified);
+
   method() => ref(token, identifier) &
-    ref(token, numberAttribute) &
-    ref(token, string('->'));
+      ref(token, numberAttribute) &
+      ref(token, string('->'));
 
   structMember() => ref(token, identifier) &
       ref(token, numberAttribute) &
@@ -52,13 +57,20 @@ class CapnpGrammarDefinition extends GrammarDefinition {
 
   enumMember() => ref(token, identifier);
   structEntry() => ref(structDefinition) | ref(structMember) | ref(enumMember);
-  topLevelEntry() => ref(structDefinition) | ref(enumDefinition) | ref(method);
+  topLevelEntry() => ref(structDefinition) |
+      ref(enumDefinition) |
+      ref(method) |
+      ref(usingStatement);
   typeSpecifier() => char(':') & ref(identifier);
 
   identifier() => letter() & word().star();
 
+  qualified() =>
+      ref(identifier) & (ref(token, '.') & ref(identifier)).optional();
+
   STRUCT() => ref(token, 'struct');
   ENUM() => ref(token, 'enum');
+  USING() => ref(token, 'using');
 
   // -----------------------------------------------------------------
   // Whitespace and comments.
