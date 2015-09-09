@@ -33,12 +33,26 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(token, '{') &
       ref(structMember).star() &
       ref(token, '}');
+  structEntry() => ref(structDefinition) | ref(structMember) | ref(enumMember);
 
   enumDefinition() => ref(ENUM) &
       ref(token, identifier) &
       ref(token, '{') &
       ref(enumMember).star() &
       ref(token, '}');
+
+  enumMember() => ref(token, identifier);
+
+  interfaceDefinition() => ref(INTERFACE) &
+      ref(token, identifier) &
+      ref(token, '{') &
+      ref(interfaceMember).star() &
+      ref(token, '}');
+
+  interfaceMember() => (ref(method) |
+      ref(structDefinition) |
+      ref(interfaceDefinition) |
+      ref(enumDefinition));
 
   usingStatement() =>
       ref(USING) & ref(token, identifier) & ref(token, '=') & ref(scopeName);
@@ -55,9 +69,8 @@ class CapnpGrammarDefinition extends GrammarDefinition {
 
   numberAttribute() => char('@') & ref(digit).plus();
 
-  enumMember() => ref(token, identifier);
-  structEntry() => ref(structDefinition) | ref(structMember) | ref(enumMember);
   topLevelEntry() => ref(structDefinition) |
+      ref(interfaceDefinition) |
       ref(enumDefinition) |
       ref(method) |
       ref(usingStatement);
@@ -69,6 +82,7 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(identifier) & (ref(token, '.') & ref(identifier)).optional();
 
   STRUCT() => ref(token, 'struct');
+  INTERFACE() => ref(token, 'interface');
   ENUM() => ref(token, 'enum');
   USING() => ref(token, 'using');
 

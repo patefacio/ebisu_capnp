@@ -46,6 +46,10 @@ foo @1 -> x
 
       'using = name' : 'using T = Foo',
       'using = qualifiedName' : 'using T = Foo.Bar',
+
+      'interface' : 'interface Foo {}',
+      'nested interface' : 'interface Foo { interface Goo { }}',
+      'interface/enum' : 'interface Foo { enum Goo { }}',
     };
 
     snippets.forEach((tag, text) {
