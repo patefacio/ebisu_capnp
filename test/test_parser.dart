@@ -35,11 +35,21 @@ struct foo {
 }
 ''',
 
-      'enum': '''
+      'empty enum': '''
 enum foo { # bam
 # bam
 }
 ''',
+
+      'enum': '''
+enum Operator {
+    add @0;          ##
+    subtract @1;   #
+    multiply @2;  #
+    divide @3;     ######
+}
+''',
+
       'method': '''
 foo @1 -> x
 ''',

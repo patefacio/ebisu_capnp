@@ -38,10 +38,11 @@ class CapnpGrammarDefinition extends GrammarDefinition {
   enumDefinition() => ref(ENUM) &
       ref(token, identifier) &
       ref(token, '{') &
-      ref(enumMember).star() &
+      ref(enumMemberStatement).star() &
       ref(token, '}');
 
-  enumMember() => ref(token, identifier);
+  enumMember() => ref(token, identifier) & ref(token, numberAttribute);
+  enumMemberStatement() => ref(token, enumMember) & ref(token, ';');
 
   interfaceDefinition() => ref(INTERFACE) &
       ref(token, identifier) &
