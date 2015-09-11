@@ -29,23 +29,23 @@ class CapnpGrammarDefinition extends GrammarDefinition {
   start() => ref(topLevelEntry).star().end();
 
   structDefinition() => ref(STRUCT) &
-      ref(token, identifier) &
+      ref(identifier) &
       ref(token, '{') &
       ref(structMember).star() &
       ref(token, '}');
   structEntry() => ref(structDefinition) | ref(structMember) | ref(enumMember);
 
   enumDefinition() => ref(ENUM) &
-      ref(token, identifier) &
+      ref(identifier) &
       ref(token, '{') &
       ref(enumMemberStatement).star() &
       ref(token, '}');
 
-  enumMember() => ref(token, identifier) & ref(token, numberAttribute);
-  enumMemberStatement() => ref(token, enumMember) & ref(token, ';');
+  enumMember() => ref(identifier) & ref(numberAttribute);
+  enumMemberStatement() => ref(enumMember) & ref(token, ';');
 
   interfaceDefinition() => ref(INTERFACE) &
-      ref(token, identifier) &
+      ref(identifier) &
       ref(token, '{') &
       ref(interfaceMember).star() &
       ref(token, '}');
@@ -56,43 +56,39 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(enumDefinition));
 
   usingStatement() =>
-      ref(USING) & ref(token, identifier) & ref(token, '=') & ref(scopeName);
+      ref(USING) & ref(identifier) & ref(token, '=') & ref(scopeName);
 
   scopeName() => ref(qualified);
 
-  method() => ref(token, identifier) &
-      ref(token, numberAttribute) &
-    ref(token, methodParms) &
-    ref(token, string('->')) &
-    ref(token, methodReturn);
+  method() => ref(identifier) &
+      ref(numberAttribute) &
+      ref(methodParms) &
+      ref(token, string('->')) &
+      ref(methodReturn);
 
   methodParms() =>
-    ref(token, '(') &
-    ref(typedValueList).optional() &
-    ref(token, ')');
+      ref(token, '(') & ref(typedValueList).optional() & ref(token, ')');
 
-  methodReturn() => ref(token, '(') &
-    ref(typedValue).optional() &
-    ref(token, ')');
+  methodReturn() =>
+      ref(token, '(') & ref(typedValue).optional() & ref(token, ')');
 
-  structMember() => ref(token, identifier) &
-      ref(token, numberAttribute) &
-      ref(token, typeSpecifier);
+  structMember() => ref(identifier) &
+      ref(numberAttribute) &
+      ref(typeSpecifier);
 
-  numberAttribute() => char('@') & ref(digit).plus();
+  numberAttribute() => ref(token, '@') & ref(digit).plus();
 
   topLevelEntry() => ref(structDefinition) |
       ref(interfaceDefinition) |
       ref(enumDefinition) |
       ref(method) |
       ref(usingStatement) |
-      ref(methodReturn)
-    ;
+      ref(methodReturn);
 
-  typeSpecifier() => char(':') & ref(identifier);
-  typedValue() => ref(token, identifier) & ref(typeSpecifier);
-  typedValueList() => ref(typedValue) & (ref(token, ',') & ref(typedValue)).star();
-
+  typeSpecifier() => ref(token, ':') & ref(identifier);
+  typedValue() => ref(identifier) & ref(typeSpecifier);
+  typedValueList() =>
+      ref(typedValue) & (ref(token, ',') & ref(typedValue)).star();
 
   identifier() => letter() & word().star();
 
