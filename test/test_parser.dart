@@ -51,7 +51,7 @@ enum Operator {
 ''',
 
       'method': '''
-foo @1 -> x
+foo @1 (x :goo y :moo) -> (goo :Int)
 ''',
 
       'using = name' : 'using T = Foo',
