@@ -68,11 +68,11 @@ class CapnpGrammarDefinition extends GrammarDefinition {
 
   methodParms() =>
     ref(token, '(') &
-    ref(typedValue).star() &
+    ref(typedValueList).optional() &
     ref(token, ')');
 
   methodReturn() => ref(token, '(') &
-    ref(token, typedValue) &
+    ref(typedValue).optional() &
     ref(token, ')');
 
   structMember() => ref(token, identifier) &
@@ -91,6 +91,7 @@ class CapnpGrammarDefinition extends GrammarDefinition {
 
   typeSpecifier() => char(':') & ref(identifier);
   typedValue() => ref(token, identifier) & ref(typeSpecifier);
+  typedValueList() => ref(typedValue) & (ref(token, ',') & ref(typedValue)).star();
 
 
   identifier() => letter() & word().star();

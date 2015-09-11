@@ -50,8 +50,10 @@ enum Operator {
 }
 ''',
 
+      'method no args no return' : 'foo @1 () -> ()',
+      'method one arg' : 'foo @1 (arg1 :arg1) -> ()',
       'method': '''
-foo @1 (x :goo y :moo) -> (goo :Int)
+foo @1 (x :goo, y :moo) -> (goo :Int)
 ''',
 
       'using = name' : 'using T = Foo',
