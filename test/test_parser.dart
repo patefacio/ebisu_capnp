@@ -39,6 +39,10 @@ struct foo {
 struct Foo { enum Goo { a @1; b @1; } }
 ''',
 
+      'struct with union' : '''
+struct Foo { union X { abc @1 : int } }
+''',
+
       'nestedStruct' : '''
 struct Foo { struct Goo { a @1 : int } }
 ''',
