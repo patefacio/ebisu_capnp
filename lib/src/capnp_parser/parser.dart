@@ -35,6 +35,15 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(token, '}');
   structEntry() => ref(structDefinition) | ref(structMember) | ref(enumMember);
 
+
+  unionDefinition() => ref(UNION) &
+      ref(identifier) &
+      ref(token, '{') &
+      ref(unionEntry).star() &
+      ref(token, '}');
+
+  unionEntry() => ref(structMember);
+
   enumDefinition() => ref(ENUM) &
       ref(identifier) &
       ref(token, '{') &
@@ -83,6 +92,7 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(enumDefinition) |
       ref(method) |
       ref(usingStatement) |
+      ref(unionDefinition) |
       ref(methodReturn);
 
   typeSpecifier() => ref(token, ':') & ref(identifier);
@@ -99,6 +109,7 @@ class CapnpGrammarDefinition extends GrammarDefinition {
   INTERFACE() => ref(token, 'interface');
   ENUM() => ref(token, 'enum');
   USING() => ref(token, 'using');
+  UNION() => ref(token, 'union');
 
   // -----------------------------------------------------------------
   // Whitespace and comments.
