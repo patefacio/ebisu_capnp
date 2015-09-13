@@ -21,7 +21,7 @@ main([List<String> args]) {
   Logger.root.level = Level.OFF;
 // custom <main>
 
-  test('parse basic schema', () {
+  group('parse basic schema', () {
     final parser = new CapnpParser();
 
     final snippets = {
@@ -33,6 +33,14 @@ struct foo {
   abce @1 :int
 
 }
+''',
+
+      'struct with enum' : '''
+struct Foo { enum Goo { a @1; b @1; } }
+''',
+
+      'nestedStruct' : '''
+struct Foo { struct Goo { a @1 : int } }
 ''',
 
       'union' : '''
@@ -69,7 +77,10 @@ foo @1 (x :goo, y :moo) -> (goo :Int)
     };
 
     snippets.forEach((tag, text) {
-      print('$tag -> ${parser.accept(text)}');
+      test(tag, () {
+        //print('$tag -> ${parser.accept(text)}');
+        expect(parser.accept(text), true);
+      });
     });
 
   });

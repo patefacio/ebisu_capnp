@@ -31,9 +31,9 @@ class CapnpGrammarDefinition extends GrammarDefinition {
   structDefinition() => ref(STRUCT) &
       ref(identifier) &
       ref(token, '{') &
-      ref(structMember).star() &
+      ref(structEntry).star() &
       ref(token, '}');
-  structEntry() => ref(structDefinition) | ref(structMember) | ref(enumMember);
+  structEntry() => ref(structDefinition) | ref(structMember) | ref(enumDefinition);
 
 
   unionDefinition() => ref(UNION) &
