@@ -51,6 +51,10 @@ struct Foo { struct Goo { a @1 : int } }
 union X { abc @1 : int }
 ''',
 
+      'unnamed union' : '''
+union { abc @1 : int }
+''',
+
       'empty enum': '''
 enum foo { # bam
 # bam

@@ -39,7 +39,7 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(unionDefinition);
 
   unionDefinition() => ref(UNION) &
-      ref(identifier) &
+      ref(identifier).optional() &
       ref(token, '{') &
       ref(unionEntry).star() &
       ref(token, '}');
