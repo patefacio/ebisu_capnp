@@ -122,7 +122,10 @@ class CapnpGrammarDefinition extends GrammarDefinition {
     pattern('^"').star() &
     ref(token, char('"'));
 
-  literalElement() => ref(literalString);
+  literalEnum() =>
+    string('true') | string('false');
+
+  literalElement() => ref(literalString) | ref(literalEnum);
 
   STRUCT() => ref(token, 'struct');
   INTERFACE() => ref(token, 'interface');

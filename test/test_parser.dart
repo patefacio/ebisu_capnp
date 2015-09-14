@@ -35,7 +35,7 @@ struct foo {
 }
 ''',
 
-      'litstr' : '["bam"]',
+      'litstr' : '[   true,  false ]\n',
 
       'member with init' : '''
 struct foo {
