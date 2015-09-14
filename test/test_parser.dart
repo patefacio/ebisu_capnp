@@ -36,6 +36,8 @@ struct foo {
 ''',
 
       'litstr' : '[   true,  false ]\n',
+      'list ints' : '[ 1, 2, 3, -2 ]\n',
+      'list floats' : '[ 1.0, -3.14 ]\n',
 
       'member with init' : '''
 struct foo {

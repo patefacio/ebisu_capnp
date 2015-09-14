@@ -83,8 +83,10 @@ class CapnpGrammarDefinition extends GrammarDefinition {
   methodReturn() =>
       ref(token, '(') & ref(typedValue).optional() & ref(token, ')');
 
-  structMember() => ref(identifier) & ref(numberAttribute) & ref(typeSpecifier)
-    & (ref(token, '=') & ref(literal)).optional();
+  structMember() => ref(identifier) &
+      ref(numberAttribute) &
+      ref(typeSpecifier) &
+      (ref(token, '=') & ref(literal)).optional();
 
   numberAttribute() => ref(token, '@') & ref(digit).plus();
 
@@ -109,23 +111,34 @@ class CapnpGrammarDefinition extends GrammarDefinition {
 
   literal() => ref(literalElement) | ref(literalList);
 
-  literalList() =>
-    ref(token, char('[')) &
-    ref(literalElements).optional() &
-    ref(token, char(']'));
+  literalList() => ref(token, char('[')) &
+      ref(literalElements).optional() &
+      ref(token, char(']'));
 
   literalElements() =>
-    ref(literalElement) & (ref(token, ',') & ref(literalElement)).star();
+      ref(literalElement) & (ref(token, ',') & ref(literalElement)).star();
 
   literalString() =>
-    ref(token, char('"')) &
-    pattern('^"').star() &
-    ref(token, char('"'));
+      ref(token, char('"')) & pattern('^"').star() & ref(token, char('"'));
 
-  literalEnum() =>
-    string('true') | string('false');
+  literalEnum() => string('true') | string('false');
 
-  literalElement() => ref(literalString) | ref(literalEnum);
+  literalInt() => char('-').optional() & char('0').or(digit().plus());
+
+  literalFloat() =>
+    char('-').optional() &
+        char('0').or(digit().plus()) &
+        char('.').seq(digit().plus()).optional() &
+        pattern('eE')
+        .seq(pattern('-+').optional())
+        .seq(digit().plus())
+        .optional();
+
+  literalElement() => ref(literalString) |
+      ref(literalEnum) |
+      ref(literalFloat) |
+      ref(literalInt);
+
 
   STRUCT() => ref(token, 'struct');
   INTERFACE() => ref(token, 'interface');
