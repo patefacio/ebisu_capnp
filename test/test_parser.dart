@@ -35,6 +35,14 @@ struct foo {
 }
 ''',
 
+      'litstr' : '["bam"]',
+
+      'member with init' : '''
+struct foo {
+  abc @1 :string = [ "a", "b" ]
+}
+''',
+
       'struct with enum' : '''
 struct Foo { enum Goo { a @1; b @1; } }
 ''',

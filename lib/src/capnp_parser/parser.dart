@@ -83,7 +83,8 @@ class CapnpGrammarDefinition extends GrammarDefinition {
   methodReturn() =>
       ref(token, '(') & ref(typedValue).optional() & ref(token, ')');
 
-  structMember() => ref(identifier) & ref(numberAttribute) & ref(typeSpecifier);
+  structMember() => ref(identifier) & ref(numberAttribute) & ref(typeSpecifier)
+    & (ref(token, '=') & ref(literal)).optional();
 
   numberAttribute() => ref(token, '@') & ref(digit).plus();
 
@@ -93,6 +94,7 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(method) |
       ref(usingStatement) |
       ref(unionDefinition) |
+      ref(literal) |
       ref(methodReturn);
 
   typeSpecifier() => ref(token, ':') & ref(identifier);
@@ -104,6 +106,23 @@ class CapnpGrammarDefinition extends GrammarDefinition {
 
   qualified() =>
       ref(identifier) & (ref(token, '.') & ref(identifier)).optional();
+
+  literal() => ref(literalElement) | ref(literalList);
+
+  literalList() =>
+    ref(token, char('[')) &
+    ref(literalElements).optional() &
+    ref(token, char(']'));
+
+  literalElements() =>
+    ref(literalElement) & (ref(token, ',') & ref(literalElement)).star();
+
+  literalString() =>
+    ref(token, char('"')) &
+    pattern('^"').star() &
+    ref(token, char('"'));
+
+  literalElement() => ref(literalString);
 
   STRUCT() => ref(token, 'struct');
   INTERFACE() => ref(token, 'interface');
