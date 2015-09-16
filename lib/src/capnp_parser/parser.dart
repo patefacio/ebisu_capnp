@@ -86,7 +86,8 @@ class CapnpGrammarDefinition extends GrammarDefinition {
   structMember() => ref(identifier) &
       ref(numberAttribute) &
       ref(typeSpecifier) &
-      (ref(token, '=') & ref(literal)).optional();
+      (ref(token, '=') & ref(literal)).optional() &
+      ref(token, ';');
 
   numberAttribute() => ref(token, '@') & ref(digit).plus();
 

@@ -30,7 +30,7 @@ main([List<String> args]) {
       'struct': '''
 struct foo {
 
-  abce @1 :int
+  abce @1 :int;
 
 }
 ''',
@@ -41,7 +41,7 @@ struct foo {
 
       'member with init' : '''
 struct foo {
-  abc @1 :string = [ "a", "b" ]
+  abc @1 :string = [ "a", "b" ];
 }
 ''',
 
@@ -50,19 +50,19 @@ struct Foo { enum Goo { a @1; b @1; } }
 ''',
 
       'struct with union' : '''
-struct Foo { union X { abc @1 : int } }
+struct Foo { union X { abc @1 : int; } }
 ''',
 
       'nestedStruct' : '''
-struct Foo { struct Goo { a @1 : int } }
+struct Foo { struct Goo { a @1 : int; } }
 ''',
 
       'union' : '''
-union X { abc @1 : int }
+union X { abc @1 : int; }
 ''',
 
       'unnamed union' : '''
-union { abc @1 : int }
+union { abc @1 : int; }
 ''',
 
       'empty enum': '''
