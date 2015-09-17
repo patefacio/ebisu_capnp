@@ -100,8 +100,27 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(literal) |
       ref(methodReturn);
 
-  typeSpecifier() => ref(token, ':') & ref(identifier);
+  typeSpecifier() => ref(token, ':') & ref(typeIdentifier);
+
   typedValue() => ref(identifier) & ref(typeSpecifier);
+
+  typeIdentifier() => ref(predefinedType) | ref(userDefinedType);
+
+  predefinedType() => ref(VOID_TYPE) |
+      ref(BOOLEAN_TYPE) |
+      ref(INT8_TYPE) |
+      ref(INT16_TYPE) |
+      ref(INT32_TYPE) |
+      ref(UINT8_TYPE) |
+      ref(UINT16_TYPE) |
+      ref(UINT32_TYPE) |
+      ref(FLOAT32_TYPE) |
+      ref(FLOAT64_TYPE) |
+      ref(BLOB_TEXT_TYPE) |
+      ref(BLOB_DATA_TYPE);
+
+  userDefinedType() => ref(identifier);
+
   typedValueList() =>
       ref(typedValue) & (ref(token, ',') & ref(typedValue)).star();
 
@@ -126,20 +145,38 @@ class CapnpGrammarDefinition extends GrammarDefinition {
 
   literalInt() => char('-').optional() & char('0').or(digit().plus());
 
-  literalFloat() =>
-    char('-').optional() &
-        char('0').or(digit().plus()) &
-        char('.').seq(digit().plus()).optional() &
-        pattern('eE')
-        .seq(pattern('-+').optional())
-        .seq(digit().plus())
-        .optional();
+  literalFloat() => char('-').optional() &
+      char('0').or(digit().plus()) &
+      char('.').seq(digit().plus()).optional() &
+      pattern('eE')
+          .seq(pattern('-+').optional())
+          .seq(digit().plus())
+          .optional();
 
   literalElement() => ref(literalString) |
       ref(literalEnum) |
       ref(literalFloat) |
       ref(literalInt);
 
+  VOID_TYPE() => ref(token, 'Void');
+  BOOLEAN_TYPE() => ref(token, 'Bool');
+
+  INT8_TYPE() => ref(token, 'Int8');
+  INT16_TYPE() => ref(token, 'Int16');
+  INT32_TYPE() => ref(token, 'Int32');
+  INT64_TYPE() => ref(token, 'Int64');
+
+  UINT8_TYPE() => ref(token, 'UInt8');
+  UINT16_TYPE() => ref(token, 'UInt16');
+  UINT32_TYPE() => ref(token, 'UInt32');
+  UINT64_TYPE() => ref(token, 'UInt64');
+
+  FLOAT32_TYPE() => ref(token, 'Float32');
+  FLOAT64_TYPE() => ref(token, 'Float64');
+  BLOB_TEXT_TYPE() => ref(token, 'Text');
+  BLOB_DATA_TYPE() => ref(token, 'Data');
+
+  LIST_TYPE() => ref(token, 'List');
 
   STRUCT() => ref(token, 'struct');
   INTERFACE() => ref(token, 'interface');
@@ -183,6 +220,16 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
   // custom <class CapnpParserDefinition>
 
   const CapnpParserDefinition();
+
+  predefinedType() {
+    print('Got predefined type');
+    return super.predefinedType();
+  }
+
+  userDefinedType() {
+    print('Got user type');
+    return super.userDefinedType();
+  }
 
   // end <class CapnpParserDefinition>
 

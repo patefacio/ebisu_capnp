@@ -1,5 +1,6 @@
 library ebisu_capnp.capnp_parser;
 
+import 'package:petitparser/debug.dart';
 import 'package:petitparser/petitparser.dart';
 
 // custom <additional imports>

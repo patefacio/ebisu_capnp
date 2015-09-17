@@ -60,6 +60,7 @@ A library focusing on capnp modeling and enhancement
       library('capnp_parser')
       ..imports = [
         'package:petitparser/petitparser.dart',
+        'package:petitparser/debug.dart',
       ]
       ..parts = [
         part('parser')
