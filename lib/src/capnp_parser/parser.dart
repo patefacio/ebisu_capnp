@@ -120,10 +120,8 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(BLOB_DATA_TYPE) |
       ref(listOfType);
 
-  listOfType() => ref(LIST_TYPE) &
-    ref(token, '(') &
-    ref(typeIdentifier) &
-    ref(token, ')');
+  listOfType() =>
+      ref(LIST_TYPE) & ref(token, '(') & ref(typeIdentifier) & ref(token, ')');
 
   userDefinedType() => ref(identifier);
 
@@ -227,22 +225,23 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
 
   const CapnpParserDefinition();
 
-  predefinedType() {
-    return super
-        .predefinedType()
-        .map((each) => _logger.info('Got *predefinedType* $each'));
-  }
+  identifier() => super.identifier().flatten().map((each) {
+        _logger.info('Got id ${each}');
+        return each;
+      });
 
-  userDefinedType() {
-    return super
-        .userDefinedType()
-        .map((each) => _logger.info('Got *userDefinedType* $each'));
-  }
+  predefinedType() => super.predefinedType().flatten().map((each) {
+        _logger.info('Got *predefinedType* $each');
+        return each;
+      });
+
+  userDefinedType() => super.userDefinedType().flatten().map((each) {
+        _logger.info('Got UDT ${each}');
+        return each;
+      });
 
   listOfType() =>
-    super
-    .listOfType()
-    .map((each) => _logger.info('Got *listOfType* $each'));
+      super.listOfType().map((each) => _logger.info('Got *listOfType* $each'));
 
   // end <class CapnpParserDefinition>
 
