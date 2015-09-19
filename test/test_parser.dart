@@ -22,6 +22,7 @@ main([List<String> args]) {
   Logger.root.level = Level.OFF;
 // custom <main>
 
+  Logger.root.level = Level.INFO;
   group('parse basic schema', () {
     final parser = new CapnpParser();
 
@@ -35,6 +36,17 @@ struct foo {
 
   abce @1 :int;
 
+}
+''',
+      'listType' : '''
+struct foo {
+  abc @1 :List(Int32);
+}
+''',
+
+      'listOfListType' : '''
+struct foo {
+  abc @1 :List(List(Int32));
 }
 ''',
       'litstr': '[   true,  false ]\n',
@@ -76,7 +88,7 @@ enum Operator {
       'method no args no return': 'foo @1 () -> ()',
       'method one arg': 'foo @1 (arg1 :arg1) -> ()',
       'method': '''
-foo @1 (x :goo, y :moo) -> (goo :Int)
+foo @1 (x :goo, y :moob) -> (goo :Int32)
 ''',
       'using = name': 'using T = Foo',
       'using = qualifiedName': 'using T = Foo.Bar',

@@ -117,7 +117,13 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(FLOAT32_TYPE) |
       ref(FLOAT64_TYPE) |
       ref(BLOB_TEXT_TYPE) |
-      ref(BLOB_DATA_TYPE);
+      ref(BLOB_DATA_TYPE) |
+      ref(listOfType);
+
+  listOfType() => ref(LIST_TYPE) &
+    ref(token, '(') &
+    ref(typeIdentifier) &
+    ref(token, ')');
 
   userDefinedType() => ref(identifier);
 
@@ -222,14 +228,21 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
   const CapnpParserDefinition();
 
   predefinedType() {
-    print('Got predefined type');
-    return super.predefinedType();
+    return super
+        .predefinedType()
+        .map((each) => _logger.info('Got *predefinedType* $each'));
   }
 
   userDefinedType() {
-    print('Got user type');
-    return super.userDefinedType();
+    return super
+        .userDefinedType()
+        .map((each) => _logger.info('Got *userDefinedType* $each'));
   }
+
+  listOfType() =>
+    super
+    .listOfType()
+    .map((each) => _logger.info('Got *listOfType* $each'));
 
   // end <class CapnpParserDefinition>
 
