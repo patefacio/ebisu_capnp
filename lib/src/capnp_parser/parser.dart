@@ -52,7 +52,9 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(enumMemberDefinition).star() &
       ref(token, '}');
 
-  enumMember() => ref(enumMemberIdentifier) & ref(enumMemberNumberAttribute);
+  enumMember() =>
+      (ref(token, enumMemberIdentifier) & ref(enumMemberNumberAttribute))
+    .map((each) { print('Each <<<${each[0]}, ${each[1]}>>>'); return  [ each[0].value, each[1] ]; });
 
   enumMemberNumberAttribute() => ref(numberAttribute);
 
@@ -94,8 +96,8 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       (ref(token, '=') & ref(literal)).optional() &
       ref(token, ';');
 
-  numberAttribute() => ref(token, '@') &
-    digit().plus().flatten().trim().map(int.parse);
+  numberAttribute() =>
+    (ref(token, '@') & digit().plus().flatten().trim().map(int.parse)).map((e) => e[1]);
 
   topLevelEntry() => ref(structDefinition) |
       ref(interfaceDefinition) |
@@ -246,86 +248,73 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
       });
 
   userDefinedType() => super.userDefinedType().flatten().map((var each) {
-    _logger.info('Got UDT ${each}');
-    return each;
-  });
+        _logger.info('Got UDT ${each}');
+        return each;
+      });
 
-  numberAttribute() =>
-    super.numberAttribute().map((var each) {
-      _logger.info('Got *numberAttribute* $each');
-      return each;
-    });
+  numberAttribute() => super.numberAttribute().map((var each) {
+        _logger.info('Got *numberAttribute* $each');
+        return each;
+      });
 
-  enumDefinition() =>
-    super.enumDefinition().map((var each) {
-      _logger.info('Got *enumDefinition* $each');
-      return each;
-    });
+  enumDefinition() => super.enumDefinition().map((var each) {
+        _logger.info('Got *enumDefinition* $each');
+        return each;
+      });
 
-  enumMember() =>
-    super.enumMember().map((var each) {
-      _logger.info('Got *enumMember* $each');
-      return each;
-    });
+  enumMember() => super.enumMember().map((var each) {
+        _logger.info('Got *enumMember* $each');
+        return each;
+      });
 
-  enumMemberIdentifier() =>
-    super.enumMemberIdentifier().map((var each) {
-      _logger.info('Got *enumMemberIdentifier* $each');
-      return each;
-    });
+  enumMemberIdentifier() => super.enumMemberIdentifier().map((var each) {
+        _logger.info('Got *enumMemberIdentifier* $each');
+        return each;
+      });
 
   enumMemberNumberIdentifier() =>
-    super.enumMemberNumberIdentifier().flatten().map((var each) {
-      _logger.info('Got *enumMemberNumberIdentifier* $each');
-      return each;
-    });
+      super.enumMemberNumberIdentifier().flatten().map((var each) {
+        _logger.info('Got *enumMemberNumberIdentifier* $each');
+        return each;
+      });
 
   //////////////////////////////////////////////////////////////////////
   // Literal Related
   //////////////////////////////////////////////////////////////////////
-  literal() =>
-    super.literal().flatten().map((var each) {
-      _logger.info('Got *literal* $each');
-      return each;
-    });
+  literal() => super.literal().flatten().map((var each) {
+        _logger.info('Got *literal* $each');
+        return each;
+      });
 
-  listOfType() =>
-    super.listOfType().map((var each) {
-      _logger.info('Got *listOfType* $each');
-      return each;
-    });
+  listOfType() => super.listOfType().map((var each) {
+        _logger.info('Got *listOfType* $each');
+        return each;
+      });
 
-  literalElement() =>
-    super.literalElement().map((var each) {
-      _logger.info('Got *literalElement* $each');
-      return each;
-    });
+  literalElement() => super.literalElement().map((var each) {
+        _logger.info('Got *literalElement* $each');
+        return each;
+      });
 
-  literalString() =>
-    super.literalString().flatten().map((var each) {
-      _logger.info('Got *literalString* $each');
-      return each;
-    });
+  literalString() => super.literalString().flatten().map((var each) {
+        _logger.info('Got *literalString* $each');
+        return each;
+      });
 
-  literalEnum() =>
-    super.literalEnum().flatten().map((var each) {
-      _logger.info('Got *literalEnum* $each');
-      return each;
-    });
+  literalEnum() => super.literalEnum().flatten().map((var each) {
+        _logger.info('Got *literalEnum* $each');
+        return each;
+      });
 
-  literalInt() =>
-    super.literalInt().flatten().map((var each) {
-      _logger.info('Got *literalInt* $each');
-      return each;
-    });
+  literalInt() => super.literalInt().flatten().map((var each) {
+        _logger.info('Got *literalInt* $each');
+        return each;
+      });
 
-
-  literalFloat() =>
-    super.literalFloat().flatten().map((var each) {
-      _logger.info('Got *literalFloat* $each');
-      return each;
-    });
-
+  literalFloat() => super.literalFloat().flatten().map((var each) {
+        _logger.info('Got *literalFloat* $each');
+        return each;
+      });
 
   // end <class CapnpParserDefinition>
 

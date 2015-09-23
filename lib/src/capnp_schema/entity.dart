@@ -2,12 +2,12 @@ part of ebisu_capnp.capnp_schema;
 
 abstract class CapnpEntity extends Entity {
   /// The [Id] for the entity
-  Id get id => _id;
+  String get id => _id;
   static Namer namer = new DefaultNamer();
 
   // custom <class CapnpEntity>
 
-  CapnpEntity(id) : _id = makeId(id);
+  CapnpEntity(String id) : _id = id;
 
   get docComment {
     final contents = chomp(br([brief, descr]), true);
@@ -19,7 +19,7 @@ abstract class CapnpEntity extends Entity {
 
   // end <class CapnpEntity>
 
-  final Id _id;
+  final String _id;
 }
 
 // custom <part entity>

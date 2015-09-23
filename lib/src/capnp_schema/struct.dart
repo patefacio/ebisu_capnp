@@ -97,7 +97,7 @@ ${indentBlock(brCompact(_members.map((m) => _pullMember(m, unionsVisited))))}
   ///
   /// No name provided indicates an anonymous union
   unionize(Iterable<dynamic> fieldIds, [String unionName = '']) => fieldIds
-      .map((id) => makeId(id))
+      .map((id) => id)
       .forEach((id) => members.firstWhere((m) => id == m.id).union = unionName);
 
   final RegExp _whiteSpace = new RegExp(r'\s+');
