@@ -151,7 +151,8 @@ class CapnpGrammarDefinition extends GrammarDefinition {
 
   literalFloat() => char('-').optional() &
       char('0').or(digit().plus()) &
-      char('.').seq(digit().plus()).optional() &
+      char('.') &
+      digit().plus().optional() &
       pattern('eE')
           .seq(pattern('-+').optional())
           .seq(digit().plus())
@@ -235,13 +236,49 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
         return each;
       });
 
-  userDefinedType() => super.userDefinedType().flatten().map((each) {
-        _logger.info('Got UDT ${each}');
-        return each;
-      });
+  userDefinedType() => super.userDefinedType().flatten().map((var each) {
+    _logger.info('Got UDT ${each}');
+    return each;
+  });
 
   listOfType() =>
-      super.listOfType().map((each) => _logger.info('Got *listOfType* $each'));
+    super.listOfType().map((var each) {
+      _logger.info('Got *listOfType* $each');
+      return each;
+    });
+
+
+  literalElement() =>
+    super.literalElement().map((var each) {
+      _logger.info('Got *literalElement* $each');
+      return each;
+    });
+
+  literalString() =>
+    super.literalString().flatten().map((var each) {
+      _logger.info('Got *literalString* $each');
+      return each;
+    });
+
+  literalEnum() =>
+    super.literalEnum().flatten().map((var each) {
+      _logger.info('Got *literalEnum* $each');
+      return each;
+    });
+
+  literalInt() =>
+    super.literalInt().flatten().map((var each) {
+      _logger.info('Got *literalInt* $each');
+      return each;
+    });
+
+
+  literalFloat() =>
+    super.literalFloat().flatten().map((var each) {
+      _logger.info('Got *literalFloat* $each');
+      return each;
+    });
+
 
   // end <class CapnpParserDefinition>
 
