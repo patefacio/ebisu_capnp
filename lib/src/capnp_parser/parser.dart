@@ -49,11 +49,16 @@ class CapnpGrammarDefinition extends GrammarDefinition {
   enumDefinition() => ref(ENUM) &
       ref(identifier) &
       ref(token, '{') &
-      ref(enumMemberStatement).star() &
+      ref(enumMemberDefinition).star() &
       ref(token, '}');
 
-  enumMember() => ref(identifier) & ref(numberAttribute);
-  enumMemberStatement() => ref(enumMember) & ref(token, ';');
+  enumMember() => ref(enumMemberIdentifier) & ref(enumMemberNumberAttribute);
+
+  enumMemberNumberAttribute() => ref(numberAttribute);
+
+  enumMemberIdentifier() => ref(identifier);
+
+  enumMemberDefinition() => ref(enumMember) & ref(token, ';');
 
   interfaceDefinition() => ref(INTERFACE) &
       ref(identifier) &
@@ -89,7 +94,8 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       (ref(token, '=') & ref(literal)).optional() &
       ref(token, ';');
 
-  numberAttribute() => ref(token, '@') & ref(digit).plus();
+  numberAttribute() => ref(token, '@') &
+    digit().plus().flatten().trim().map(int.parse);
 
   topLevelEntry() => ref(structDefinition) |
       ref(interfaceDefinition) |
@@ -133,6 +139,9 @@ class CapnpGrammarDefinition extends GrammarDefinition {
   qualified() =>
       ref(identifier) & (ref(token, '.') & ref(identifier)).optional();
 
+  //////////////////////////////////////////////////////////////////////
+  // Literal Related
+  //////////////////////////////////////////////////////////////////////
   literal() => ref(literalElement) | ref(literalList);
 
   literalList() => ref(token, char('[')) &
@@ -241,12 +250,50 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
     return each;
   });
 
+  numberAttribute() =>
+    super.numberAttribute().map((var each) {
+      _logger.info('Got *numberAttribute* $each');
+      return each;
+    });
+
+  enumDefinition() =>
+    super.enumDefinition().map((var each) {
+      _logger.info('Got *enumDefinition* $each');
+      return each;
+    });
+
+  enumMember() =>
+    super.enumMember().map((var each) {
+      _logger.info('Got *enumMember* $each');
+      return each;
+    });
+
+  enumMemberIdentifier() =>
+    super.enumMemberIdentifier().map((var each) {
+      _logger.info('Got *enumMemberIdentifier* $each');
+      return each;
+    });
+
+  enumMemberNumberIdentifier() =>
+    super.enumMemberNumberIdentifier().flatten().map((var each) {
+      _logger.info('Got *enumMemberNumberIdentifier* $each');
+      return each;
+    });
+
+  //////////////////////////////////////////////////////////////////////
+  // Literal Related
+  //////////////////////////////////////////////////////////////////////
+  literal() =>
+    super.literal().flatten().map((var each) {
+      _logger.info('Got *literal* $each');
+      return each;
+    });
+
   listOfType() =>
     super.listOfType().map((var each) {
       _logger.info('Got *listOfType* $each');
       return each;
     });
-
 
   literalElement() =>
     super.literalElement().map((var each) {
