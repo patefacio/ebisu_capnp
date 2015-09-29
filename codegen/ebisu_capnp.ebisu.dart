@@ -62,6 +62,7 @@ A library focusing on capnp modeling and enhancement
       ..imports = [
         'package:petitparser/petitparser.dart',
         'package:petitparser/debug.dart',
+        'package:ebisu_capnp/capnp_schema.dart',
       ]
       ..parts = [
         part('parser')
@@ -184,7 +185,7 @@ BuiltIn get builtInType;
           ..members = [
             member('id')
             ..doc = 'The [Id] for the entity'
-            ..type = 'Id'
+            ..type = 'String'
             ..access = RO..isFinal = true,
             member('namer')
             ..type = 'Namer'

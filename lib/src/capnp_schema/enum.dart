@@ -14,6 +14,8 @@ class EnumValue extends CapnpEntity with Numbered {
 
   get name => CapnpEntity.namer.nameEnumValue(id);
 
+  toString() => 'EV($id, $number)';
+
   // end <class EnumValue>
 
 }

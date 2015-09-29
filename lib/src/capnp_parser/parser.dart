@@ -53,14 +53,17 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(token, '}');
 
   enumMember() =>
-      (ref(token, enumMemberIdentifier) & ref(enumMemberNumberAttribute))
-    .map((each) { print('Each <<<${each[0]}, ${each[1]}>>>'); return  [ each[0].value, each[1] ]; });
+    ref(token, enumMemberIdentifier) & ref(enumMemberNumberAttribute);
 
   enumMemberNumberAttribute() => ref(numberAttribute);
 
   enumMemberIdentifier() => ref(identifier);
 
-  enumMemberDefinition() => ref(enumMember) & ref(token, ';');
+  enumMemberDefinition() => (ref(enumMember) & ref(token, ';'))
+    .map((var each) {
+      _logger.info('Got enumMemberDefinition ${each[0]}');
+      return each[0];
+    });
 
   interfaceDefinition() => ref(INTERFACE) &
       ref(identifier) &
@@ -97,7 +100,8 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(token, ';');
 
   numberAttribute() =>
-    (ref(token, '@') & digit().plus().flatten().trim().map(int.parse)).map((e) => e[1]);
+      (ref(token, '@') & digit().plus().flatten().trim().map(int.parse))
+          .map((e) => e[1]);
 
   topLevelEntry() => ref(structDefinition) |
       ref(interfaceDefinition) |
@@ -264,7 +268,7 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
 
   enumMember() => super.enumMember().map((var each) {
         _logger.info('Got *enumMember* $each');
-        return each;
+        return new EnumValue(each[0].value, each[1]);
       });
 
   enumMemberIdentifier() => super.enumMemberIdentifier().map((var each) {

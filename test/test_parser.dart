@@ -38,13 +38,12 @@ struct foo {
 
 }
 ''',
-      'listType' : '''
+      'listType': '''
 struct foo {
   abc @1 :List(Int32);
 }
 ''',
-
-      'listOfListType' : '''
+      'listOfListType': '''
 struct foo {
   abc @1 :List(List(Int32));
 }
