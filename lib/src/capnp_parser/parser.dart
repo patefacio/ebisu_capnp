@@ -53,17 +53,16 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(token, '}');
 
   enumMember() =>
-    ref(token, enumMemberIdentifier) & ref(enumMemberNumberAttribute);
+      ref(token, enumMemberIdentifier) & ref(enumMemberNumberAttribute);
 
   enumMemberNumberAttribute() => ref(numberAttribute);
 
   enumMemberIdentifier() => ref(identifier);
 
-  enumMemberDefinition() => (ref(enumMember) & ref(token, ';'))
-    .map((var each) {
-      _logger.info('Got enumMemberDefinition ${each[0]}');
-      return each[0];
-    });
+  enumMemberDefinition() => (ref(enumMember) & ref(token, ';')).map((var each) {
+        _logger.info('Got enumMemberDefinition ${each[0]}');
+        return each[0];
+      });
 
   interfaceDefinition() => ref(INTERFACE) &
       ref(identifier) &
@@ -155,7 +154,9 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(token, char(']'));
 
   literalElements() =>
-      ref(literalElement) & (ref(token, ',') & ref(literalElement)).star();
+    ref(literalElement) & ref(literalNext).star();
+
+  literalNext() => ref(token, ',') & ref(literalElement);
 
   literalString() =>
       ref(token, char('"')) & pattern('^"').star() & ref(token, char('"'));
@@ -285,6 +286,25 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
   //////////////////////////////////////////////////////////////////////
   // Literal Related
   //////////////////////////////////////////////////////////////////////
+
+  literalList() => super.literalList().map((var each) {
+    _logger.info('ll ${each[0].runtimeType} ${each[1].runtimeType} ${each[2].runtimeType}(${each[2]})');
+    int i = 1;
+    for(var e in each) {
+      _logger.info('literalListEntry ${i++} => ${e.runtimeType} -> $e');
+    }
+    return each;
+  });
+
+  literalElements() {
+    final elements = super.literalElements();
+    _logger.info('Got *literalElements* ${elements.runtimeType} $elements');
+    return elements.map((var e) {
+      _logger.info('Got *literalList* ${e.runtimeType} $e');
+    });
+    return elements;
+  }
+
   literal() => super.literal().flatten().map((var each) {
         _logger.info('Got *literal* $each');
         return each;
@@ -296,9 +316,14 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
       });
 
   literalElement() => super.literalElement().map((var each) {
-        _logger.info('Got *literalElement* $each');
+        _logger.info('Got *literalElement* ${each.runtimeType} $each');
         return each;
       });
+
+  literalNext() => super.literalNext().map((var each) {
+    _logger.info('Got *literalNext* $each returning ${each[1]}');
+    return each[1];
+  });
 
   literalString() => super.literalString().flatten().map((var each) {
         _logger.info('Got *literalString* $each');
@@ -312,12 +337,12 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
 
   literalInt() => super.literalInt().flatten().map((var each) {
         _logger.info('Got *literalInt* $each');
-        return each;
+        return int.parse(each);
       });
 
   literalFloat() => super.literalFloat().flatten().map((var each) {
         _logger.info('Got *literalFloat* $each');
-        return each;
+        return double.parse(each);
       });
 
   // end <class CapnpParserDefinition>

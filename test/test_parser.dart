@@ -53,7 +53,12 @@ struct foo {
       'list floats': '[ 1.0, -3.14, 2., 1.222222, 2., 0.00000001 ]\n',
       'member with init': '''
 struct foo {
-  abc @1 :string = [ "a", "b" ];
+  abc @1 :string = [ "abra", "b" ];
+}
+''',
+      'member with list size 1': '''
+struct foo {
+  abc @1 :string = [ "abra" ];
 }
 ''',
       'struct with enum': '''
