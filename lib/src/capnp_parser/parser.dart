@@ -288,27 +288,22 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
   //////////////////////////////////////////////////////////////////////
 
   literalList() => super.literalList().map((var each) {
-    _logger.info('ll ${each[0].runtimeType} ${each[1].runtimeType} ${each[2].runtimeType}(${each[2]})');
-    int i = 1;
-    for(var e in each) {
-      _logger.info('literalListEntry ${i++} => ${e.runtimeType} -> $e');
+    final sourceList = each[1];
+    if(sourceList != null && sourceList.length > 1) {
+      final result = [ sourceList[0] ];
+      result.addAll(sourceList[1]);
+      _logger.info('Returning ${result.runtimeType}(${result.length}) $result');
+      return result;
     }
-    return each;
+    return [];
   });
 
-  literalElements() {
-    final elements = super.literalElements();
-    _logger.info('Got *literalElements* ${elements.runtimeType} $elements');
-    return elements.map((var e) {
-      _logger.info('Got *literalList* ${e.runtimeType} $e');
+  literal() {
+    return super.literal().map((var each) {
+      _logger.info('Got *literal* ${each.runtimeType} -> $each');
+      return each;
     });
-    return elements;
   }
-
-  literal() => super.literal().flatten().map((var each) {
-        _logger.info('Got *literal* $each');
-        return each;
-      });
 
   listOfType() => super.listOfType().map((var each) {
         _logger.info('Got *listOfType* $each');
@@ -325,10 +320,8 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
     return each[1];
   });
 
-  literalString() => super.literalString().flatten().map((var each) {
-        _logger.info('Got *literalString* $each');
-        return each;
-      });
+  literalString() => super.literalString().map((var each) =>
+      each[1].join());
 
   literalEnum() => super.literalEnum().flatten().map((var each) {
         _logger.info('Got *literalEnum* $each');

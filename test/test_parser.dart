@@ -51,14 +51,32 @@ struct foo {
       'litstr': '[   true,  false ]\n',
       'list ints': '[ 1, 2222222222, 3, -2 ]\n',
       'list floats': '[ 1.0, -3.14, 2., 1.222222, 2., 0.00000001 ]\n',
-      'member with init': '''
+
+      'member with list string assign': '''
 struct foo {
-  abc @1 :string = [ "abra", "b" ];
+  abc @1 :string = "abra";
 }
 ''',
-      'member with list size 1': '''
+
+      'member with int assign': '''
+struct foo {
+  abc @1 :Int = 42;
+}
+''',
+
+      'member with list init size 4': '''
+struct foo {
+  abc @1 :List(string) = [ "abra", "b", "z", "goo" ];
+}
+''',
+      'member with list init size 1': '''
 struct foo {
   abc @1 :string = [ "abra" ];
+}
+''',
+      'member with list size 0': '''
+struct foo {
+  abc @1 :string = [];
 }
 ''',
       'struct with enum': '''
