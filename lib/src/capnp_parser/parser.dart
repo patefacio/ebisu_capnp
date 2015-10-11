@@ -33,6 +33,7 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(token, '{') &
       ref(structEntry).star() &
       ref(token, '}');
+
   structEntry() => ref(structDefinition) |
       ref(structMember) |
       ref(enumDefinition) |
@@ -282,6 +283,32 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
         _logger.info('Got *enumMemberNumberIdentifier* $each');
         return each;
       });
+
+  //////////////////////////////////////////////////////////////////////
+  // Struct Related
+  //////////////////////////////////////////////////////////////////////
+
+  structDefinition() => super.structDefinition().map((var each) {
+    final structName = each[1];
+    final entries = each[3];
+    _logger.info('Entries -> $entries');
+    //assert(entries.every((e) => e is Member));
+    final struct = new Struct(structName)
+      ;//..members.addAll(entries);
+    _logger.info('Struct Def($structName) $struct');
+    return struct;
+  });
+
+  structMember() => super.structMember().map((var each) {
+    final name = each[0];
+    final numberAttribute = each[1];
+    final typeSpecifier = each[2];
+    final optionalLiteralAssignment = each[3];
+    final schemaMember = new Member(name, numberAttribute);
+    _logger.info('Struct (name:$name, num:$numberAttribute, type:$typeSpecifier, '
+        'literalAssign:$optionalLiteralAssignment');
+    return schemaMember;
+  });
 
   //////////////////////////////////////////////////////////////////////
   // Literal Related

@@ -33,6 +33,8 @@ class Member extends CapnpEntity with Numbered implements Definable, Referable {
 
   get _defaultAssign => _defaultValue != null ? '= $_defaultValue' : null;
 
+  String toString() => definition;
+
   // end <class Member>
 
   dynamic _defaultValue;
@@ -59,6 +61,8 @@ ${indentBlock(brCompact(_members.map((m) => _pullMember(m, unionsVisited))))}
 ''';
     return result;
   }
+
+  String toString() => definition;
 
   /// Pull the member definition from the struct.
   ///
