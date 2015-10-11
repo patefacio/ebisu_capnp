@@ -234,7 +234,7 @@ BuiltIn get builtInType;
         part('struct')
         ..classes = [
 
-          class_('member')
+          class_('field')
           ..extend = 'CapnpEntity'
           ..implement = [ 'Definable', 'Referable' ]
           ..mixins = [ 'Numbered' ]
@@ -248,11 +248,12 @@ For an anonymous union use empty string ""
             member('default_value')..type = 'dynamic'..access = RO,
           ],
 
+
           class_('struct')
           ..extend = 'CapnpEntity'
           ..implement = [ 'Definable', 'Referable' ]
           ..members = [
-            member('members')..type = 'List<Member>'..classInit = []..access = RO,
+            member('fields')..type = 'List<Field>'..classInit = []..access = RO,
             member('structs')..type = 'List<Struct>'..classInit = [],
           ]
         ],

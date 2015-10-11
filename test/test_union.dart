@@ -22,7 +22,7 @@ main([List<String> args]) {
 // custom <main>
 
   test('supports anonymous union', () {
-    var s = struct('s')..members = ['m1 1', 'm2 42 :Text', 'm3 @43 :Text'];
+    var s = struct('s')..fields = ['m1 1', 'm2 42 :Text', 'm3 @43 :Text'];
     s.unionize(['m1', 'm3']);
     expect(darkMatter(s.definition), darkMatter('''
 struct S {
@@ -36,7 +36,7 @@ struct S {
   });
 
   test('allows only one anonymous union', () {
-    var s = struct('s')..members = ['m1 1', 'm2 42 :Text', 'm3 @43 :Text'];
+    var s = struct('s')..fields = ['m1 1', 'm2 42 :Text', 'm3 @43 :Text'];
     s.unionize(['m1', 'm3']);
 
     /// Note: The following has no effect as m1 is already in the anonymous union
@@ -53,7 +53,7 @@ struct S {
   });
 
   test('supports named unions', () {
-    var s = struct('s')..members = ['m1 1', 'm2 42 :Text', 'm3 @43 :Text'];
+    var s = struct('s')..fields = ['m1 1', 'm2 42 :Text', 'm3 @43 :Text'];
     s.unionize(['m1', 'm3'], 'm1_and_m3');
     s.unionize(['m2'], 'just_m2');
     expect(darkMatter(s.definition), darkMatter('''

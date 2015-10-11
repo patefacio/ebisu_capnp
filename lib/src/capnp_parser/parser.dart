@@ -154,8 +154,7 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(literalElements).optional() &
       ref(token, char(']'));
 
-  literalElements() =>
-    ref(literalElement) & ref(literalNext).star();
+  literalElements() => ref(literalElement) & ref(literalNext).star();
 
   literalNext() => ref(token, ',') & ref(literalElement);
 
@@ -289,41 +288,42 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
   //////////////////////////////////////////////////////////////////////
 
   structDefinition() => super.structDefinition().map((var each) {
-    final structName = each[1];
-    final entries = each[3];
-    _logger.info('Entries -> $entries');
-    //assert(entries.every((e) => e is Member));
-    final struct = new Struct(structName)
-      ;//..members.addAll(entries);
-    _logger.info('Struct Def($structName) $struct');
-    return struct;
-  });
+        final structName = each[1];
+        final entries = each[3];
+        _logger.info('Entries -> $entries');
+        //assert(entries.every((e) => e is Member));
+        final struct = new Struct(structName); //..members.addAll(entries);
+        _logger.info('Struct Def($structName) $struct');
+        return struct;
+      });
 
   structMember() => super.structMember().map((var each) {
-    final name = each[0];
-    final numberAttribute = each[1];
-    final typeSpecifier = each[2];
-    final optionalLiteralAssignment = each[3];
-    final schemaMember = new Member(name, numberAttribute);
-    _logger.info('Struct (name:$name, num:$numberAttribute, type:$typeSpecifier, '
-        'literalAssign:$optionalLiteralAssignment');
-    return schemaMember;
-  });
+        final name = each[0];
+        final numberAttribute = each[1];
+        final typeSpecifier = each[2];
+        final optionalLiteralAssignment = each[3];
+        final schemaMember = new Field(name, numberAttribute);
+        _logger.info(
+            'Struct (name:$name, num:$numberAttribute, type:$typeSpecifier, '
+            'literalAssign:$optionalLiteralAssignment');
+        return schemaMember;
+      });
 
   //////////////////////////////////////////////////////////////////////
   // Literal Related
   //////////////////////////////////////////////////////////////////////
 
   literalList() => super.literalList().map((var each) {
-    final sourceList = each[1];
-    if(sourceList != null && sourceList.length > 1) {
-      final result = [ sourceList[0] ];
-      result.addAll(sourceList[1]);
-      _logger.info('Returning ${result.runtimeType}(${result.length}) $result');
-      return result;
-    }
-    return [];
-  });
+        final sourceList = each[1];
+        if (sourceList != null && sourceList.length > 1) {
+          final result = [sourceList[0]];
+          result.addAll(sourceList[1]);
+          _logger.info(
+              'Returning ${result.runtimeType}(${result.length}) $result');
+          return result;
+        }
+        return [];
+      });
 
   literal() {
     return super.literal().map((var each) {
@@ -343,12 +343,11 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
       });
 
   literalNext() => super.literalNext().map((var each) {
-    _logger.info('Got *literalNext* $each returning ${each[1]}');
-    return each[1];
-  });
+        _logger.info('Got *literalNext* $each returning ${each[1]}');
+        return each[1];
+      });
 
-  literalString() => super.literalString().map((var each) =>
-      each[1].join());
+  literalString() => super.literalString().map((var each) => each[1].join());
 
   literalEnum() => super.literalEnum().flatten().map((var each) {
         _logger.info('Got *literalEnum* $each');
