@@ -254,6 +254,7 @@ For an anonymous union use empty string ""
           ..implement = [ 'Definable', 'Referable' ]
           ..members = [
             member('fields')..type = 'List<Field>'..classInit = []..access = RO,
+            member('interfaces')..type = 'List<Interface>'..classInit = []..access = RO,
             member('structs')..type = 'List<Struct>'..classInit = [],
           ]
         ],
@@ -288,6 +289,8 @@ For an anonymous union use empty string ""
           ..members = [
             member('extend')..type = 'List<Interface>'..classInit = [],
             member('methods')..type = 'List<Method>'..classInit = [],
+            member('interfaces')..type = 'List<Interface>'..classInit = []..access = RO,
+            member('structs')..type = 'List<Struct>'..classInit = [],
           ]
         ],
         part('generic'),

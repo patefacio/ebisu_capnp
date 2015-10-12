@@ -21,6 +21,8 @@ class Method extends CapnpEntity with Numbered {
 class Interface extends CapnpEntity {
   List<Interface> extend = [];
   List<Method> methods = [];
+  List<Interface> get interfaces => _interfaces;
+  List<Struct> structs = [];
 
   // custom <class Interface>
 
@@ -29,6 +31,7 @@ class Interface extends CapnpEntity {
 
   // end <class Interface>
 
+  List<Interface> _interfaces = [];
 }
 
 // custom <part interface>

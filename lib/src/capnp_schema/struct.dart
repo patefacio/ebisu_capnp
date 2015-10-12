@@ -41,6 +41,7 @@ class Field extends CapnpEntity with Numbered implements Definable, Referable {
 
 class Struct extends CapnpEntity implements Definable, Referable {
   List<Field> get fields => _fields;
+  List<Interface> get interfaces => _interfaces;
   List<Struct> structs = [];
 
   // custom <class Struct>
@@ -129,6 +130,7 @@ ${indentBlock(brCompact(_fields.map((m) => _pullField(m, unionsVisited))))}
   // end <class Struct>
 
   List<Field> _fields = [];
+  List<Interface> _interfaces = [];
 }
 
 // custom <part struct>
