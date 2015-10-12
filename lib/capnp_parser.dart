@@ -8,6 +8,7 @@ import 'package:petitparser/petitparser.dart';
 // custom <additional imports>
 // end <additional imports>
 
+part 'src/capnp_parser/grammar.dart';
 part 'src/capnp_parser/parser.dart';
 
 final _logger = new Logger('capnp_parser');

@@ -65,14 +65,16 @@ A library focusing on capnp modeling and enhancement
         'package:ebisu_capnp/capnp_schema.dart',
       ]
       ..parts = [
-        part('parser')
+        part('grammar')
         ..classes = [
           class_('capnp_grammar')
           ..extend = 'GrammarParser',
 
           class_('capnp_grammar_definition')
           ..extend = 'GrammarDefinition',
-
+        ],
+        part('parser')
+        ..classes = [
           class_('capnp_parser')
           ..extend = 'GrammarParser',
 
