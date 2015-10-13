@@ -104,16 +104,21 @@ enum Operator {
     divide @3;     ######
 }
 ''',
-      'method no args no return': 'foo @1 () -> ()',
-      'method one arg': 'foo @1 (arg1 :arg1) -> ()',
+      'method no args no return': 'foo @1 () -> ();',
+      'method one arg': 'foo @1 (arg1 :arg1) -> ();',
       'method': '''
-foo @1 (x :goo, y :moob) -> (goo :Int32)
+foo @1 (x :goo, y :moob) -> (goo :Int32) ;
 ''',
       'using = name': 'using T = Foo',
       'using = qualifiedName': 'using T = Foo.Bar',
       'interface': 'interface Foo {}',
       'nested interface': 'interface Foo { interface Goo { }}',
       'interface/enum': 'interface Foo { enum Goo { }}',
+      'interface with method': '''
+interface IF {
+  foo @1 (arg1 :arg1) -> ();
+}
+'''
     };
 
     snippets.forEach((tag, text) {

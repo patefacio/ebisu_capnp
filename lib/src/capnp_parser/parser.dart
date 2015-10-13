@@ -35,19 +35,21 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
       });
 
   enumDefinition() => super.enumDefinition().map((var each) {
-    final enumName = each[1];
-    final enumMemberDefinitions = each[3];
-    final enumDefinition = new Enum(enumName)..values = enumMemberDefinitions;
-    _logger.info('Got *enumDefinition* ($enumName) $enumDefinition');
-    return enumDefinition;
-  });
+        final enumName = each[1];
+        final enumMemberDefinitions = each[3];
+        final enumDefinition = new Enum(enumName)
+          ..values = enumMemberDefinitions;
+        _logger.info('Got *enumDefinition* ($enumName)\n$enumDefinition');
+        return enumDefinition;
+      });
 
   enumMember() => super.enumMember().map((var each) {
         _logger.info('Got *enumMember* $each');
         return new EnumValue(each[0].value, each[1]);
       });
 
-  enumMemberDefinition() => super.enumMemberDefinition().map((var each) => each);
+  enumMemberDefinition() =>
+      super.enumMemberDefinition().map((var each) => each);
 
   enumMemberIdentifier() => super.enumMemberIdentifier().map((var each) {
         _logger.info('Got *enumMemberIdentifier* $each');
@@ -70,7 +72,7 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
         _logger.info('Entries -> $entries');
         //assert(entries.every((e) => e is Member));
         final struct = new Struct(structName); //..members.addAll(entries);
-        _logger.info('Struct Def($structName) $struct');
+        _logger.info('Struct Def($structName)\n$struct');
         return struct;
       });
 
@@ -90,11 +92,16 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
   // Interface Related
   //////////////////////////////////////////////////////////////////////
   interfaceDefinition() => super.interfaceDefinition().map((var each) {
-    final interfaceName = each[1];
-    final interfaceMembers = each[3].map((im) => im.toString()).join();
-    _logger.info('Interface <$interfaceName> ${interfaceMembers.runtimeType}(${interfaceMembers.length}) ${super.interfaceDefinition().flatten().map((e) => e.toString())})');
+        final interfaceName = each[1];
+        final interfaceMembers = each[3];
+        for (var im in interfaceMembers) {
+          _logger.info('\n\tfound im: ${im.runtimeType}');
+        }
+
+        _logger.info(
+            'Interface <$interfaceName> ${interfaceMembers.runtimeType}(${interfaceMembers.length}) ${super.interfaceDefinition().flatten().map((e) => e.toString())})');
         return each;
-  });
+      });
 
   interfaceMember() => super.interfaceMember().map((var each) => each);
 

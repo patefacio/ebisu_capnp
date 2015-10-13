@@ -56,6 +56,8 @@ class Struct extends CapnpEntity implements Definable, Referable {
     final unionsVisited = new Set();
     final result = '''
 struct $name {
+${indentBlock(brCompact(interfaces.map((i) => i.definition)))}
+${indentBlock(brCompact(structs.map((s) => s.definition)))}
 ${indentBlock(brCompact(_fields.map((m) => _pullField(m, unionsVisited))))}
 }
 ''';
