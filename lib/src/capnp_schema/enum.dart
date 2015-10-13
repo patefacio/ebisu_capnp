@@ -53,6 +53,8 @@ class Enum extends CapnpEntity implements Definable, Referable {
           ? entry
           : throw 'Enum.values must have entries of type [String, Id, or EnumValue]';
 
+  String toString() => definition;
+
   // end <class Enum>
 
   List<EnumValue> _values = [];

@@ -14,7 +14,7 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
 
   const CapnpParserDefinition();
 
-  identifier() => super.identifier().flatten().map((each) {
+  identifier() => super.identifier().flatten().map((var each) {
         _logger.info('Got id ${each}');
         return each;
       });
@@ -35,14 +35,19 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
       });
 
   enumDefinition() => super.enumDefinition().map((var each) {
-        _logger.info('Got *enumDefinition* $each');
-        return each;
-      });
+    final enumName = each[1];
+    final enumMemberDefinitions = each[3];
+    final enumDefinition = new Enum(enumName)..values = enumMemberDefinitions;
+    _logger.info('Got *enumDefinition* ($enumName) $enumDefinition');
+    return enumDefinition;
+  });
 
   enumMember() => super.enumMember().map((var each) {
         _logger.info('Got *enumMember* $each');
         return new EnumValue(each[0].value, each[1]);
       });
+
+  enumMemberDefinition() => super.enumMemberDefinition().map((var each) => each);
 
   enumMemberIdentifier() => super.enumMemberIdentifier().map((var each) {
         _logger.info('Got *enumMemberIdentifier* $each');
@@ -81,14 +86,17 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
         return schemaMember;
       });
 
-
   //////////////////////////////////////////////////////////////////////
   // Interface Related
   //////////////////////////////////////////////////////////////////////
   interfaceDefinition() => super.interfaceDefinition().map((var each) {
-    _logger.info('Interface $each');
-    return each;
+    final interfaceName = each[1];
+    final interfaceMembers = each[3].map((im) => im.toString()).join();
+    _logger.info('Interface <$interfaceName> ${interfaceMembers.runtimeType}(${interfaceMembers.length}) ${super.interfaceDefinition().flatten().map((e) => e.toString())})');
+        return each;
   });
+
+  interfaceMember() => super.interfaceMember().map((var each) => each);
 
   //////////////////////////////////////////////////////////////////////
   // Literal Related

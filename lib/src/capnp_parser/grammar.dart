@@ -72,10 +72,10 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(interfaceMember).star() &
       ref(token, '}');
 
-  interfaceMember() => (ref(method) |
+  interfaceMember() => ref(method) |
       ref(structDefinition) |
       ref(interfaceDefinition) |
-      ref(enumDefinition));
+      ref(enumDefinition);
 
   usingStatement() =>
       ref(USING) & ref(identifier) & ref(token, '=') & ref(scopeName);
