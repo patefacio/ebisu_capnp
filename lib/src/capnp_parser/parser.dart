@@ -76,7 +76,7 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
         return struct;
       });
 
-  structMember() => super.structMember().map((var each) {
+  structField() => super.structField().map((var each) {
         final name = each[0];
         final numberAttribute = each[1];
         final typeSpecifier = each[2];
