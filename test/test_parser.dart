@@ -7,6 +7,7 @@ import 'package:test/test.dart';
 // custom <additional imports>
 
 import 'package:ebisu_capnp/capnp_parser.dart';
+import 'package:ebisu/ebisu.dart';
 import 'package:petitparser/debug.dart';
 
 // end <additional imports>
@@ -126,6 +127,9 @@ interface IF {
         //print('$tag -> ${parser.accept(text)}');
         //if(tag != 'void') return;
         //expect(trace(parser).accept(text), true);
+        _logger.info('\n-----------------------($tag)-----------------------------\n'
+            '${indentBlock(text)}');
+        _logger.info(text);
         expect(parser.accept(text), true);
       });
     });
