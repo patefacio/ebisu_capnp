@@ -93,16 +93,22 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
   //////////////////////////////////////////////////////////////////////
 
   typedValue() => super.typedValue().map((var each) {
-    _logger.info('TypedValue => ${[ each[0], each[1][1] ]}');
-    return [ each[0], each[1][1] ];
-  });
+        _logger.info('TypedValue => ${[ each[0], each[1][1] ]}');
+        return [each[0], each[1][1]];
+      });
+
+  methodReturn() => super.methodReturn().map((var each) {
+        return each[1];
+      });
 
   method() => super.method().map((var each) {
-    final methodName = each[0];
-    final number = each[1];
-    _logger.info('Method #$number hit Method($methodName)');
-    return "Method($methodName)";
-  });
+        final methodName = each[0];
+        final number = each[1];
+        final methodReturn = each[4];
+        _logger.info(
+            'Method #$number hit Method($methodName) methodReturn($methodReturn)');
+        return "Method($methodName)";
+      });
 
   interfaceDefinition() => super.interfaceDefinition().map((var each) {
         final interfaceName = each[1];

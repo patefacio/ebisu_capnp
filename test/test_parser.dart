@@ -127,7 +127,8 @@ interface IF {
         //print('$tag -> ${parser.accept(text)}');
         //if(tag != 'void') return;
         //expect(trace(parser).accept(text), true);
-        _logger.info('\n-----------------------($tag)-----------------------------\n'
+        _logger.info(
+            '\n-----------------------($tag)-----------------------------\n'
             '${indentBlock(text)}');
         _logger.info(text);
         expect(parser.accept(text), true);
