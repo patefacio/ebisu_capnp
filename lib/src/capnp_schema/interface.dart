@@ -1,20 +1,29 @@
 part of ebisu_capnp.capnp_schema;
 
-class MethodDecl {
-  // custom <class MethodDecl>
-  // end <class MethodDecl>
+class MethodParm {
+  /// The type of the method parameter
+  String type;
+
+  /// The name of the method parameter
+  String name;
+
+  // custom <class MethodParm>
+  // end <class MethodParm>
 
 }
 
-class Method extends CapnpEntity with Numbered {
-  MethodDecl methodDecl;
+class MethodDecl extends CapnpEntity with Numbered {
+  /// The method parameters
+  List<MethodParm> methodParms = [];
 
-  // custom <class Method>
+  // custom <class MethodDecl>
 
-  Method(id) : super(id);
+  MethodDecl(id) : super(id);
   Iterable<Entity> get children => new Iterable<Entity>.generate(0);
 
-  // end <class Method>
+  toString() => 'MethodDecl($id)';
+
+  // end <class MethodDecl>
 
 }
 

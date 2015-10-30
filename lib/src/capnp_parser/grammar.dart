@@ -155,9 +155,7 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(literalElements).optional() &
       ref(token, char(']'));
 
-  literalElements() => ref(literalElement) & ref(literalNext).star();
-
-  literalNext() => ref(token, ',') & ref(literalElement);
+  literalElements() => listOfItems(ref(literalElement));
 
   literalString() =>
       ref(token, char('"')) & pattern('^"').star() & ref(token, char('"'));
@@ -230,7 +228,8 @@ class CapnpGrammarDefinition extends GrammarDefinition {
         final firstElement = e[0];
         final remainingElements = e[1].map((e) => e[1]);
         final result = [e[0]]..addAll(remainingElements);
-        _logger.info('list of items $result on $e');
+        _logger.info(
+            'list of items $result => ${result[0].runtimeType} => ${result.runtimeType}');
         return result;
       });
 

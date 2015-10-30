@@ -122,11 +122,11 @@ interface IF {
 '''
     };
 
-    snippets.forEach((tag, text) {
+    snippets.keys
+        //        .where((tag) => tag.contains('init size 4'))
+        .forEach((String tag) {
+      final text = snippets[tag];
       test(tag, () {
-        //print('$tag -> ${parser.accept(text)}');
-        //if(tag != 'void') return;
-        //expect(trace(parser).accept(text), true);
         _logger.info(
             '\n-----------------------($tag)-----------------------------\n'
             '${indentBlock(text)}');

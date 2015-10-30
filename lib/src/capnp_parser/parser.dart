@@ -98,43 +98,45 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
       });
 
   typedValueList() => super.typedValueList().map((var each) {
-    _logger.info('TypedValueList $each');
-    return each;
-  });
+        _logger.info('TypedValueList $each');
+        return each;
+      });
 
   methodReturn() => super.methodReturn().map((var each) {
         return each[1];
       });
 
   methodParms() => super.methodParms().map((var each) {
-    final methodParms = each[1];
-    if(methodParms != null) {
-      _logger.info('All parms $methodParms');
-      for(var parm in methodParms) {
-        _logger.info('bam $parm');
-        final name = parm[0];
-        final type = parm[1];
-        _logger.info('Got parm ($name :$type)');
-      }
-    }
-    return each[1];
-  });
+        final methodParms = each[1];
+        if (methodParms != null) {
+          _logger.info('All parms $methodParms');
+          for (var parm in methodParms) {
+            _logger.info('bam $parm');
+            final name = parm[0];
+            final type = parm[1];
+            _logger.info('Got parm ($name :$type)');
+          }
+        }
+        return each[1];
+      });
 
   method() => super.method().map((var each) {
         final methodName = each[0];
         final number = each[1];
         final methodParms = each[2];
         final methodReturn = each[4];
+        final methodDecl = new MethodDecl(methodName);
+
         _logger.info(
             'Method #$number hit Method($methodName($methodParms)) methodReturn($methodReturn)');
-        return "Method($methodName)";
+        return methodDecl;
       });
 
   interfaceDefinition() => super.interfaceDefinition().map((var each) {
         final interfaceName = each[1];
         final interfaceMembers = each[3];
         for (var im in interfaceMembers) {
-          _logger.info('\n\tfound im: ${im.runtimeType}');
+          _logger.info('\n\tfound im: ${im.runtimeType} => $im');
         }
 
         _logger.info(
@@ -142,22 +144,18 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
         return each;
       });
 
-  interfaceMember() => super.interfaceMember().map((var each) => each);
+  interfaceMember() => super.interfaceMember().map((var each) {
+    _logger.info('Interface Member => $each');
+    return each;
+  });
 
   //////////////////////////////////////////////////////////////////////
   // Literal Related
   //////////////////////////////////////////////////////////////////////
 
   literalList() => super.literalList().map((var each) {
-        final sourceList = each[1];
-        if (sourceList != null && sourceList.length > 1) {
-          final result = [sourceList[0]];
-          result.addAll(sourceList[1]);
-          _logger.info(
-              'Returning ${result.runtimeType}(${result.length}) $result');
-          return result;
-        }
-        return [];
+        _logger.info('Got list of $each');
+        return each[1];
       });
 
   literal() {
@@ -177,10 +175,12 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
         return each;
       });
 
+  /*
   literalNext() => super.literalNext().map((var each) {
         _logger.info('Got *literalNext* $each returning ${each[1]}');
         return each[1];
       });
+  */
 
   literalString() => super.literalString().map((var each) => each[1].join());
 
