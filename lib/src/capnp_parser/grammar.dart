@@ -140,7 +140,9 @@ class CapnpGrammarDefinition extends GrammarDefinition {
   userDefinedType() => ref(identifier);
 
   typedValueList() =>
-      ref(typedValue) & (ref(token, ',') & ref(typedValue)).star();
+    (ref(typedValue) & ref(nextTypedValue).star()).map((e) => [e[0]]..addAll(e[1]));
+
+  nextTypedValue() => (ref(token, ',') & ref(typedValue)).map((e) => e[1]);
 
   identifier() => letter() & word().star();
 

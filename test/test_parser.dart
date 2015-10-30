@@ -117,7 +117,7 @@ foo @1 (x :goo, y :moob) -> (goo :Int32) ;
       'interface/enum': 'interface Foo { enum Goo { }}',
       'interface with method': '''
 interface IF {
-  foo @1 (arg1 :arg1) -> ();
+  foo @1 (arg1Name :arg1Type, arg2Name :arg2Type, arg3Name :arg3Type) -> ();
 }
 '''
     };
