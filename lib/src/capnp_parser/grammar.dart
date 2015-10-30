@@ -139,10 +139,7 @@ class CapnpGrammarDefinition extends GrammarDefinition {
 
   userDefinedType() => ref(identifier);
 
-  typedValueList() =>
-    (ref(typedValue) & ref(nextTypedValue).star()).map((e) => [e[0]]..addAll(e[1]));
-
-  nextTypedValue() => (ref(token, ',') & ref(typedValue)).map((e) => e[1]);
+  typedValueList() => listOfItems(ref(typedValue));
 
   identifier() => letter() & word().star();
 
@@ -228,9 +225,19 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       (ref(MULTI_LINE_COMMENT) | string('*/').neg()).star() &
       string('*/');
 
+  listOfItems(Parser itemParser) =>
+      (itemParser & (ref(token, ',') & itemParser).star()).map((var e) {
+        final firstElement = e[0];
+        final remainingElements = e[1].map((e) => e[1]);
+        final result = [e[0]]..addAll(remainingElements);
+        _logger.info('list of items $result on $e');
+        return result;
+      });
+
   // end <class CapnpGrammarDefinition>
 
 }
 
 // custom <part grammar>
+
 // end <part grammar>
