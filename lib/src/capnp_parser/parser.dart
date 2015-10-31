@@ -106,26 +106,17 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
         return each[1];
       });
 
-  methodParms() => super.methodParms().map((var each) {
-        final methodParms = each[1];
-        if (methodParms != null) {
-          _logger.info('All parms $methodParms');
-          for (var parm in methodParms) {
-            _logger.info('bam $parm');
-            final name = parm[0];
-            final type = parm[1];
-            _logger.info('Got parm ($name :$type)');
-          }
-        }
-        return each[1];
-      });
+  methodParms() =>
+      super.methodParms().map((List methodParms) => methodParms[1] ?? []);
 
   method() => super.method().map((var each) {
         final methodName = each[0];
         final number = each[1];
         final methodParms = each[2];
         final methodReturn = each[4];
-        final methodDecl = new MethodDecl(methodName);
+        final methodDecl = new MethodDecl(methodName)
+          ..methodParms = methodParms
+          ..number = number;
 
         _logger.info(
             'Method #$number hit Method($methodName($methodParms)) methodReturn($methodReturn)');
@@ -145,9 +136,9 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
       });
 
   interfaceMember() => super.interfaceMember().map((var each) {
-    _logger.info('Interface Member => $each');
-    return each;
-  });
+        _logger.info('Interface Member => $each');
+        return each;
+      });
 
   //////////////////////////////////////////////////////////////////////
   // Literal Related
