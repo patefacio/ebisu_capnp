@@ -106,8 +106,9 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
         return each[1];
       });
 
-  methodParms() =>
-      super.methodParms().map((List methodParms) => methodParms[1] ?? []);
+  methodParms() => super
+      .methodParms()
+      .map((List methodParms) => methodParms[1] == null ? [] : methodParms[1]);
 
   method() => super.method().map((var each) {
         final methodName = each[0];
