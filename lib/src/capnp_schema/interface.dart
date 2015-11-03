@@ -53,8 +53,8 @@ class MethodDecl extends CapnpEntity with Numbered {
 
 class Interface extends CapnpEntity {
   List<Interface> extend = [];
-  List<Method> methods = [];
-  List<Interface> get interfaces => _interfaces;
+  List<MethodDecl> methodDecls = [];
+  List<Interface> interfaces = [];
   List<Struct> structs = [];
 
   // custom <class Interface>
@@ -62,9 +62,14 @@ class Interface extends CapnpEntity {
   Interface(id) : super(id);
   Iterable<Entity> get children => new Iterable<Entity>.generate(0);
 
+  toString() => '''
+Interface($id)
+  structs: [${structs.map((s) => s.id)}]
+  methodDecls: [${methodDecls.map((md) => md.id)}]
+  interfaces: [${interfaces.map((i) => i.id)}]
+''';
   // end <class Interface>
 
-  List<Interface> _interfaces = [];
 }
 
 // custom <part interface>

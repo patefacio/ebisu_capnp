@@ -117,15 +117,30 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
 
   interfaceDefinition() => super.interfaceDefinition().map((var each) {
         final interfaceName = each[1];
+        final methodDecls = [];
+        final interfaces = [];
+        final structs = [];
+        final enums = [];
+
         final interfaceMembers = each[3];
         for (var im in interfaceMembers) {
-          _logger.info('\n\tfound im: ${im.runtimeType} => $im');
+          if (im is Interface) interfaces.add(im);
+          else if (im is Struct) structs.add(im);
+          else if (im is Enum) enums.add(im);
+          else if (im is MethodDecl) methodDecls.add(im);
+          else _logger
+              .warning('Not interfaceDefinition member ${im.runtimeType}');
         }
 
-        _logger.info(
-            'Interface <$interfaceName> ${interfaceMembers.runtimeType}(${interfaceMembers.length}) ${super.interfaceDefinition().flatten().map((e) => e.toString())})');
-        return each;
-      });
+        final interfaceDefinition = new Interface(interfaceName)
+          ..methodDecls = methodDecls
+          ..interfaces = interfaces
+          ..structs = structs;
+
+        _logger.info('ID -> $interfaceDefinition');
+        return interfaceDefinition;
+
+  });
 
   interfaceMember() => super.interfaceMember().map((var each) {
         _logger.info('Interface Member => $each');

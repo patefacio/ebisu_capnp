@@ -278,13 +278,12 @@ For an anonymous union use empty string ""
                   member('extend')
                     ..type = 'List<Interface>'
                     ..classInit = [],
-                  member('methods')
-                    ..type = 'List<Method>'
+                  member('method_decls')
+                    ..type = 'List<MethodDecl>'
                     ..classInit = [],
                   member('interfaces')
                     ..type = 'List<Interface>'
-                    ..classInit = []
-                    ..access = RO,
+                    ..classInit = [],
                   member('structs')
                     ..type = 'List<Struct>'
                     ..classInit = [],
