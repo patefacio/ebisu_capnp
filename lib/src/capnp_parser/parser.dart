@@ -142,19 +142,9 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
         return interfaceDefinition;
       });
 
-  interfaceMember() => super.interfaceMember().map((var each) {
-        _logger.info('Interface Member => $each');
-        return each;
-      });
-
   //////////////////////////////////////////////////////////////////////
   // Literal Related
   //////////////////////////////////////////////////////////////////////
-
-  literalList() => super.literalList().map((var each) {
-        _logger.info('Got list of $each');
-        return each[1];
-      });
 
   literal() {
     return super.literal().map((var each) {

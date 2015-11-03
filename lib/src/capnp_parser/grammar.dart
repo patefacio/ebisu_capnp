@@ -153,9 +153,9 @@ class CapnpGrammarDefinition extends GrammarDefinition {
   //////////////////////////////////////////////////////////////////////
   literal() => ref(literalElement) | ref(literalList);
 
-  literalList() => ref(token, char('[')) &
+  literalList() => (ref(token, char('[')) &
       ref(literalElements).optional() &
-      ref(token, char(']'));
+      ref(token, char(']'))).map((e) => e[1]);
 
   literalElements() => listOfItems(ref(literalElement));
 
