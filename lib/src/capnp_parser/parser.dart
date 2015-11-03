@@ -102,18 +102,18 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
         return each;
       });
 
-  methodReturn() => super.methodReturn().map((var each) {
-        return each[1];
-      });
+  methodReturn() => super.methodReturn().map(
+      (var each) => each == null ? null : new MethodReturn(each[0], each[1]));
 
-  methodParms() => super
-      .methodParms()
-      .map((List methodParms) => methodParms[1] == null ? [] : methodParms[1]);
+  methodParms() =>
+      super.methodParms().map((List methodParms) => methodParms == null
+          ? []
+          : methodParms.map((tv) => new MethodParm(tv[0], tv[1])).toList());
 
-  method() => super.method().map((var each) =>
-      new MethodDecl(each[0])
-      ..number = each[1]
-      ..methodParms = each[2]);
+  method() => super.method().map((var each) => new MethodDecl(each[0])
+    ..number = each[1]
+    ..methodParms = each[2]
+    ..methodReturn = each[4]);
 
   interfaceDefinition() => super.interfaceDefinition().map((var each) {
         final interfaceName = each[1];

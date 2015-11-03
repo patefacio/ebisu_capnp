@@ -252,8 +252,13 @@ For an anonymous union use empty string ""
             ..classes = [
               class_('method_parm')
                 ..members = [
-                  member('type')..doc = 'The type of the method parameter',
                   member('name')..doc = 'The name of the method parameter',
+                  member('type')..doc = 'The type of the method parameter',
+                ],
+              class_('method_return')
+                ..members = [
+                  member('name')..doc = 'The name of the return',
+                  member('type')..doc = 'The type of the return',
                 ],
               class_('method_decl')
                 ..extend = 'CapnpEntity'
@@ -262,7 +267,10 @@ For an anonymous union use empty string ""
                   member('method_parms')
                     ..doc = 'The method parameters'
                     ..type = 'List<MethodParm>'
-                    ..classInit = []
+                    ..classInit = [],
+                  member('method_return')
+                    ..type = 'The return details of the method'
+                    ..type = 'MethodReturn',
                 ],
               class_('interface')
                 ..extend = 'CapnpEntity'

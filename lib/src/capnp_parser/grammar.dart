@@ -90,10 +90,12 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       ref(token, ';');
 
   methodParms() =>
-      ref(token, '(') & ref(typedValueList).optional() & ref(token, ')');
+      (ref(token, '(') & ref(typedValueList).optional() & ref(token, ')'))
+          .map((e) => e[1]);
 
   methodReturn() =>
-      ref(token, '(') & ref(typedValue).optional() & ref(token, ')');
+      (ref(token, '(') & ref(typedValue).optional() & ref(token, ')'))
+          .map((e) => e[1]);
 
   structField() => ref(identifier) &
       ref(numberAttribute) &
