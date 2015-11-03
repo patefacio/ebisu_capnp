@@ -117,7 +117,10 @@ foo @1 (x :goo, y :moob) -> (goo :Int32) ;
       'interface/enum': 'interface Foo { enum Goo { }}',
       'interface with method': '''
 interface IF {
-  foo @1 (arg1Name :arg1Type, arg2Name :arg2Type, arg3Name :arg3Type) -> (result :List(Int32));
+  nestedMethod @1 (arg1Name :arg1Type, arg2Name :arg2Type) -> (result :List(Int32));
+  struct nestedStruct { }
+  enum nestedEnum { red @0; }
+  interface nestedInterface { }
 }
 '''
     };

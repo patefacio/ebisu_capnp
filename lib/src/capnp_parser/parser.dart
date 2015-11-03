@@ -135,12 +135,12 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
         final interfaceDefinition = new Interface(interfaceName)
           ..methodDecls = methodDecls
           ..interfaces = interfaces
-          ..structs = structs;
+          ..structs = structs
+          ..enums = enums;
 
         _logger.info('ID -> $interfaceDefinition');
         return interfaceDefinition;
-
-  });
+      });
 
   interfaceMember() => super.interfaceMember().map((var each) {
         _logger.info('Interface Member => $each');

@@ -56,6 +56,7 @@ class Interface extends CapnpEntity {
   List<MethodDecl> methodDecls = [];
   List<Interface> interfaces = [];
   List<Struct> structs = [];
+  List<Enum> enums = [];
 
   // custom <class Interface>
 
@@ -64,13 +65,17 @@ class Interface extends CapnpEntity {
 
   toString() => '''
 Interface($id)
-  structs: [${structs.map((s) => s.id)}]
-  methodDecls: [${methodDecls.map((md) => md.id)}]
-  interfaces: [${interfaces.map((i) => i.id)}]
+  structs: [${structs.map(_itemId)}]
+  methodDecls: [${methodDecls.map(_itemId)}]
+  interfaces: [${interfaces.map(_itemId)}]
+  enums: [${enums.map(_itemId)}]
 ''';
   // end <class Interface>
 
 }
 
 // custom <part interface>
+
+String _itemId(item) => item.id;
+
 // end <part interface>

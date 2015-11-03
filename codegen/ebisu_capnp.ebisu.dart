@@ -287,6 +287,9 @@ For an anonymous union use empty string ""
                   member('structs')
                     ..type = 'List<Struct>'
                     ..classInit = [],
+                  member('enums')
+                    ..type = 'List<Enum>'
+                    ..classInit = [],
                 ]
             ],
           part('generic'),
