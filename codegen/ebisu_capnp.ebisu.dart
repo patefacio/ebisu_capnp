@@ -270,8 +270,8 @@ For an anonymous union use empty string ""
               class_('union')
                 ..members = [
                   member('name')..doc = 'Name of union or null if anonymous',
-                  member('members')
-                    ..type = 'List<Member>'
+                  member('fields')
+                    ..type = 'List<Field>'
                     ..classInit = []
                     ..access = RO,
                 ]

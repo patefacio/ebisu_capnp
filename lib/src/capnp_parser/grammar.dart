@@ -229,7 +229,7 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       (itemParser & (ref(token, ',') & itemParser).star()).map((var e) {
         final firstElement = e[0];
         final remainingElements = e[1].map((e) => e[1]);
-        final result = [e[0]]..addAll(remainingElements);
+        final result = [firstElement]..addAll(remainingElements);
         _logger.info(
             'list of items $result => ${result[0].runtimeType} => ${result.runtimeType}');
         return result;
