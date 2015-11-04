@@ -101,6 +101,7 @@ A library focusing on capnp modeling and enhancement
               class_('default_namer')..extend = 'Namer',
               class_('numbered')..members = [member('number')..type = 'int'],
             ],
+
           part('type')
             ..withCustomBlock((CodeBlock cb) {
               cb.snippets.add(br(builtIns.map((var builtIn) {
@@ -141,6 +142,17 @@ const Typed();
 String get type;
 ''');
                 }),
+
+              class_('valued')
+              ..doc = 'Establishes base class for value associated with type'
+              ..isAbstract = true
+                ..withCustomBlock((CodeBlock cb) {
+                  cb.snippets.add('''
+const Valued();
+String get value;
+''');
+                }),
+
               class_('built_in_type')
                 ..doc = 'Establishes a base type for *capnp* *IDL* built-ins'
                 ..isAbstract = true
@@ -152,6 +164,23 @@ const BuiltInType();
 BuiltIn get builtInType;
 ''');
                 }),
+
+              class_('literal')
+              ..implement = [ 'Typed' ]
+              ..isAbstract = true,
+
+              class_('literal_scalar')
+              ..extend = 'Literal'
+              ..members = [
+                member('value')..type = 'dynamic',
+              ],
+
+              class_('literal_list')
+              ..extend = 'Literal'
+              ..members = [
+                member('values')..type = 'List<dynamic>'..classInit = []
+              ],
+
             ],
           part('entity')
             ..classes = [

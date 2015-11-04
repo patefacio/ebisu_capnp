@@ -24,10 +24,41 @@ abstract class Typed {
   String get type;
 }
 
+/// Establishes base class for value associated with type
+abstract class Valued {
+  // custom <class Valued>
+  // end <class Valued>
+
+  const Valued();
+  String get value;
+}
+
 /// Establishes a base type for *capnp* *IDL* built-ins
 abstract class BuiltInType extends Typed {
   const BuiltInType();
   BuiltIn get builtInType;
+}
+
+abstract class Literal implements Typed {
+  // custom <class Literal>
+  // end <class Literal>
+
+}
+
+class LiteralScalar extends Literal {
+  dynamic value;
+
+  // custom <class LiteralScalar>
+  // end <class LiteralScalar>
+
+}
+
+class LiteralList extends Literal {
+  List<dynamic> values = [];
+
+  // custom <class LiteralList>
+  // end <class LiteralList>
+
 }
 
 // custom <part type>

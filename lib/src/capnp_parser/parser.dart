@@ -146,13 +146,6 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
   // Literal Related
   //////////////////////////////////////////////////////////////////////
 
-  literal() {
-    return super.literal().map((var each) {
-      _logger.info('Got *literal* ${each.runtimeType} -> $each');
-      return each;
-    });
-  }
-
   listOfType() => super.listOfType().map((var each) {
         _logger.info('Got *listOfType* $each');
         return each;
