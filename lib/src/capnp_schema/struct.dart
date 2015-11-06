@@ -39,7 +39,8 @@ class Field extends CapnpEntity with Numbered implements Definable, Referable {
   dynamic _defaultValue;
 }
 
-class Struct extends CapnpEntity implements Definable, Referable {
+class Struct extends CapnpEntity
+    implements Definable, Referable, UserDefinedType {
   List<Field> get fields => _fields;
   List<Interface> get interfaces => _interfaces;
   List<Struct> structs = [];

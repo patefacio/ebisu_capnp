@@ -39,22 +39,38 @@ abstract class BuiltInType extends Typed {
   BuiltIn get builtInType;
 }
 
-abstract class Literal implements Typed {
+abstract class UserDefinedType implements Typed {
+  // custom <class UserDefinedType>
+  // end <class UserDefinedType>
+
+}
+
+abstract class Literal implements Typed, Valued {
   // custom <class Literal>
   // end <class Literal>
 
 }
 
-class LiteralScalar extends Literal {
+class LiteralBuiltInType extends Literal {
+  BuiltInType type;
   dynamic value;
 
-  // custom <class LiteralScalar>
-  // end <class LiteralScalar>
+  // custom <class LiteralBuiltInType>
+  // end <class LiteralBuiltInType>
+
+}
+
+class LiteralUserDefinedType extends Literal {
+  UserDefinedType type;
+  dynamic value;
+
+  // custom <class LiteralUserDefinedType>
+  // end <class LiteralUserDefinedType>
 
 }
 
 class LiteralList extends Literal {
-  List<dynamic> values = [];
+  List<Literal> literals = [];
 
   // custom <class LiteralList>
   // end <class LiteralList>

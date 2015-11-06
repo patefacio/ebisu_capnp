@@ -165,23 +165,36 @@ BuiltIn get builtInType;
 ''');
                 }),
 
-              class_('literal')
+              class_('user_defined_type')
               ..implement = [ 'Typed' ]
               ..isAbstract = true,
 
-              class_('literal_scalar')
+              class_('literal')
+              ..implement = [ 'Typed', 'Valued' ]
+              ..isAbstract = true,
+
+              class_('literal_built_in_type')
               ..extend = 'Literal'
               ..members = [
+                member('type')..type = 'BuiltInType',
+                member('value')..type = 'dynamic',
+              ],
+
+              class_('literal_user_defined_type')
+              ..extend = 'Literal'
+              ..members = [
+                member('type')..type = 'UserDefinedType',
                 member('value')..type = 'dynamic',
               ],
 
               class_('literal_list')
               ..extend = 'Literal'
               ..members = [
-                member('values')..type = 'List<dynamic>'..classInit = []
+                member('literals')..type = 'List<Literal>'..classInit = []
               ],
 
             ],
+
           part('entity')
             ..classes = [
               class_('capnp_entity')
@@ -250,7 +263,7 @@ For an anonymous union use empty string ""
                 ],
               class_('struct')
                 ..extend = 'CapnpEntity'
-                ..implement = ['Definable', 'Referable']
+              ..implement = ['Definable', 'Referable', 'UserDefinedType']
                 ..members = [
                   member('fields')
                     ..type = 'List<Field>'
