@@ -46,7 +46,6 @@ A library focusing on capnp modeling and enhancement
     ..doc = purpose
     ..testLibraries = [
       library('test_type')..imports = ['../lib/capnp_schema.dart'],
-      library('test_enum')..imports = ['../lib/capnp_schema.dart'],
       library('test_entity')..imports = ['../lib/capnp_schema.dart'],
       library('test_using')..imports = ['../lib/capnp_schema.dart'],
       library('test_struct')..imports = ['../lib/capnp_schema.dart'],
@@ -71,6 +70,14 @@ A library focusing on capnp modeling and enhancement
         part('parse_method'),
         part('parse_interface'),
       ],
+      library('test_factories')
+      ..imports = [
+        '../lib/capnp_schema.dart',
+        'package:ebisu/ebisu.dart'
+      ]
+      ..parts = [
+        part('name_enums'),
+      ]
     ]
     ..libraries = [
       library('capnp_generation'),
@@ -101,6 +108,7 @@ A library focusing on capnp modeling and enhancement
           'package:quiver/iterables.dart',
         ]
         ..parts = [
+
           part('common')
             ..classes = [
               class_('definable')..isAbstract = true,
@@ -366,6 +374,9 @@ For an anonymous union use empty string ""
                   member('constants')..type = 'List<Constant>',
                 ]
             ],
+
+          part('factories'),
+
         ]
     ];
 

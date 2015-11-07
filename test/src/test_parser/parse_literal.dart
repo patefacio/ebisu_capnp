@@ -10,7 +10,8 @@ final _validLiterals = {
   'literal list strings empty': ':List(string) = [ #empty \n ]',
   'literal list ints': ':List(Int32) = [ 1, 2222222222, 3, -2 ]',
   'literal list ints': ':List(Bool) = [ true, false ]',
-  'literal list floats': ':Float = [ 1.0, -3.14, 2., 1.222222, 2., 0.00000001 ]\n',
+  'literal list floats':
+      ':Float = [ 1.0, -3.14, 2., 1.222222, 2., 0.00000001 ]\n',
 };
 
 parseLiteralTests() {

@@ -1,6 +1,5 @@
 import 'package:logging/logging.dart';
 import 'test_type.dart' as test_type;
-import 'test_enum.dart' as test_enum;
 import 'test_entity.dart' as test_entity;
 import 'test_using.dart' as test_using;
 import 'test_struct.dart' as test_struct;
@@ -13,6 +12,7 @@ import 'test_import.dart' as test_import;
 import 'test_annotation.dart' as test_annotation;
 import 'test_schema.dart' as test_schema;
 import 'test_parser.dart' as test_parser;
+import 'test_factories.dart' as test_factories;
 
 main() {
   Logger.root.level = Level.OFF;
@@ -21,7 +21,6 @@ main() {
   });
 
   test_type.main();
-  test_enum.main();
   test_entity.main();
   test_using.main();
   test_struct.main();
@@ -34,4 +33,5 @@ main() {
   test_annotation.main();
   test_schema.main();
   test_parser.main();
+  test_factories.main();
 }

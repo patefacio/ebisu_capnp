@@ -53,8 +53,4 @@ class Enum extends CapnpEntity implements Definable, Referable {
 }
 
 // custom <part enum>
-
-EnumValue enumValue(id, number) => new EnumValue(id, number);
-Enum enum_(id) => new Enum(id);
-
 // end <part enum>

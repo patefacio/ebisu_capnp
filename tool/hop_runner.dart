@@ -17,7 +17,6 @@ void main(List<String> args) {
       'analyze_test',
       createAnalyzerTask([
         "test/test_type.dart",
-        "test/test_enum.dart",
         "test/test_entity.dart",
         "test/test_using.dart",
         "test/test_struct.dart",
@@ -29,7 +28,8 @@ void main(List<String> args) {
         "test/test_import.dart",
         "test/test_annotation.dart",
         "test/test_schema.dart",
-        "test/test_parser.dart"
+        "test/test_parser.dart",
+        "test/test_factories.dart"
       ]));
 
   runHop(args);

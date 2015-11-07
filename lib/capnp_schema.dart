@@ -12,6 +12,7 @@ part 'src/capnp_schema/common.dart';
 part 'src/capnp_schema/constant.dart';
 part 'src/capnp_schema/entity.dart';
 part 'src/capnp_schema/enum.dart';
+part 'src/capnp_schema/factories.dart';
 part 'src/capnp_schema/generic.dart';
 part 'src/capnp_schema/group.dart';
 part 'src/capnp_schema/import.dart';
