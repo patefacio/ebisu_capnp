@@ -58,7 +58,14 @@ A library focusing on capnp modeling and enhancement
       library('test_import')..imports = ['../lib/capnp_schema.dart'],
       library('test_annotation')..imports = ['../lib/capnp_schema.dart'],
       library('test_schema')..imports = ['../lib/capnp_schema.dart'],
-      library('test_parser')..imports = ['../lib/capnp_schema.dart'],
+      library('test_parser')
+      ..imports = ['../lib/capnp_schema.dart']
+      ..parts = [
+        part('parse_enum'),
+        part('parse_union'),
+        part('parse_method'),
+        part('parse_interface'),
+      ],
     ]
     ..libraries = [
       library('capnp_generation'),
