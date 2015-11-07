@@ -3,9 +3,17 @@ part of ebisu_capnp.test_parser;
 // custom <part parse_interface>
 
 final _validInterfaces = {
-  'empty interface': 'interface Foo {}',
-  'simple nested interface': 'interface Foo { interface Goo { }}',
+  'interface empty': 'interface Foo {}',
+  'interface simple nested': 'interface Foo { interface Goo { }}',
   'interface with enum': 'interface Foo { enum Goo { }}',
+  'interface with lots of stuff': '''
+interface IF {
+  nestedMethod @1 (arg1Name :arg1Type, arg2Name :arg2Type) -> (result :List(Int32));
+  struct nestedStruct { }
+  enum nestedEnum { red @0; }
+  interface nestedInterface { }
+}
+'''
 };
 
 parseInterfaceTests() {

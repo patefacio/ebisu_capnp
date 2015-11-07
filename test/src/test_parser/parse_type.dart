@@ -1,9 +1,12 @@
 part of ebisu_capnp.test_parser;
 
-// custom <part parse_types>
+// custom <part parse_type>
 
 final _validTypes = {
-  'type - void' : ':Void',
+  'type - void': ':Void',
+  'type - int': ':Int32',
+  'type - list of int': ':List(Int32)',
+  'type - list of list of int': ':List(List(Int32))',
 };
 
 parseTypeTests() {
@@ -19,4 +22,4 @@ struct S {
   });
 }
 
-// end <part parse_types>
+// end <part parse_type>
