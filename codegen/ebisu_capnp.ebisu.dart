@@ -61,8 +61,11 @@ A library focusing on capnp modeling and enhancement
       library('test_parser')
       ..imports = ['../lib/capnp_schema.dart']
       ..parts = [
+        part('parse_types'),
+        part('parse_import'),
         part('parse_enum'),
         part('parse_union'),
+        part('parse_struct'),
         part('parse_method'),
         part('parse_interface'),
       ],

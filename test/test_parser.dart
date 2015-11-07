@@ -13,8 +13,11 @@ import 'package:petitparser/debug.dart';
 // end <additional imports>
 
 part 'src/test_parser/parse_enum.dart';
+part 'src/test_parser/parse_import.dart';
 part 'src/test_parser/parse_interface.dart';
 part 'src/test_parser/parse_method.dart';
+part 'src/test_parser/parse_struct.dart';
+part 'src/test_parser/parse_types.dart';
 part 'src/test_parser/parse_union.dart';
 
 final _logger = new Logger('test_parser');
@@ -28,21 +31,13 @@ main([List<String> args]) {
   Logger.root.level = Level.OFF;
 // custom <main>
 
-  Logger.root.level = Level.OFF;
+  Logger.root.level = Level.WARNING;
   group('parse basic schema', () {
     final parser = new CapnpParser();
 
     final snippets = {
       'void': '''
 struct F { x @1 :Void; }
-''',
-      'empty': '',
-      'struct': '''
-struct foo {
-
-  abce @1 :int;
-
-}
 ''',
       'listType': '''
 struct foo {
@@ -117,8 +112,11 @@ interface IF {
     });
   });
 
+  parseImportTests();
+  parseTypeTests();
   parseEnumTests();
   parseUnionTests();
+  parseStructTests();
   parseMethodTests();
   parseInterfaceTests();
 
