@@ -42,7 +42,6 @@ class MethodDecl extends CapnpEntity with Numbered {
   // custom <class MethodDecl>
 
   MethodDecl(id) : super(id);
-  Iterable<Entity> get children => new Iterable<Entity>.generate(0);
 
   toString() =>
       'MethodDecl($id:@$number) ${methodParms.join(",")} -> $methodReturn';
@@ -61,7 +60,6 @@ class Interface extends CapnpEntity {
   // custom <class Interface>
 
   Interface(id) : super(id);
-  Iterable<Entity> get children => new Iterable<Entity>.generate(0);
 
   toString() => '''
 Interface($id)

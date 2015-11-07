@@ -25,13 +25,12 @@ main([List<String> args]) {
   });
 
   test('AliasUsing', () {
-    final au = new AliasUsing('foobar', 'Foo.Bar')..doc = 'Confusing';
+    final au = new AliasUsing('foobar', 'Foo.Bar');
     expect(
         darkSame(
             au.definition,
             '''
-using Foobar_t = Foo.Bar;
-  #  Confusing
+using foobar = Foo.Bar;
 '''),
         true);
   });

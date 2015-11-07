@@ -13,8 +13,7 @@ class Field extends CapnpEntity with Numbered implements Definable, Referable {
   Field(id, int number_, [this.type = int32T]) : super(id) {
     number = number_;
   }
-  Iterable<Entity> get children => new Iterable<Entity>.generate(0);
-  get name => CapnpEntity.namer.nameMember(id);
+
   get definition =>
       combine([name, '@$number', type.type, _defaultAssign], ' ') + ';';
 
@@ -47,10 +46,6 @@ class Struct extends CapnpEntity
 
   // custom <class Struct>
   Struct(id) : super(id);
-
-  Iterable<Entity> get children => new Iterable<Entity>.generate(0);
-
-  get name => CapnpEntity.namer.nameStruct(id);
 
   /// Return the definition of the struct in IDL format
   get definition {

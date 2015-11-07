@@ -25,7 +25,7 @@ main([List<String> args]) {
     var s = struct('s')..fields = ['m1 1', 'm2 42 :Text', 'm3 @43 :Text'];
     s.unionize(['m1', 'm3']);
     expect(darkMatter(s.definition), darkMatter('''
-struct S {
+struct s {
   union {
     m1 @1 :Int32;
     m3 @43 :Text;
@@ -42,7 +42,7 @@ struct S {
     /// Note: The following has no effect as m1 is already in the anonymous union
     s.unionize(['m1']);
     expect(darkMatter(s.definition), darkMatter('''
-struct S {
+struct s {
   union {
     m1 @1 :Int32;
     m3 @43 :Text;
@@ -57,7 +57,7 @@ struct S {
     s.unionize(['m1', 'm3'], 'm1_and_m3');
     s.unionize(['m2'], 'just_m2');
     expect(darkMatter(s.definition), darkMatter('''
-struct S {
+struct s {
   union m1_and_m3 {
     m1 @1 :Int32;
     m3 @43 :Text;

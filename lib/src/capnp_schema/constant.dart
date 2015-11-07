@@ -7,9 +7,6 @@ class Constant extends CapnpEntity implements Definable, Referable {
   // custom <class Constant>
 
   Constant(id, this._type, this._value) : super(id);
-  Iterable<Entity> get children => new Iterable<Entity>.generate(0);
-
-  get name => CapnpEntity.namer.nameConst(id);
 
   get reference => throw 'TBD';
 

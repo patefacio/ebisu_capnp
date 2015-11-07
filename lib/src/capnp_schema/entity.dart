@@ -1,21 +1,17 @@
 part of ebisu_capnp.capnp_schema;
 
-abstract class CapnpEntity extends Entity {
+abstract class CapnpEntity {
   /// The [Id] for the entity
   String get id => _id;
-  static Namer namer = new DefaultNamer();
+  String docComment;
 
   // custom <class CapnpEntity>
 
   CapnpEntity(String id) : _id = id;
 
-  get docComment {
-    final contents = chomp(br([brief, descr]), true);
-    if (contents.isNotEmpty) {
-      return scriptComment(contents, '  ');
-    }
-    return null;
-  }
+  get capnp;
+
+  get name => id;
 
   // end <class CapnpEntity>
 

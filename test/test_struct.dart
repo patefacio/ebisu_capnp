@@ -31,25 +31,25 @@ main([List<String> args]) {
   group('struct', () {
     test('structs can be empty', () {
       final s = struct('s');
-      expect(darkMatter(s.definition), darkMatter('struct S { }'));
+      expect(darkMatter(s.definition), darkMatter('struct s { }'));
     });
 
     test('structs have numbered fields defaulted to Int32', () {
       final s = struct('s')..fields = [field('m1', 1), field('m2', 2),];
       expect(darkMatter(s.definition),
-          darkMatter('struct S { m1 @1 :Int32; m2 @2 :Int32; }'));
+          darkMatter('struct s { m1 @1 :Int32; m2 @2 :Int32; }'));
     });
 
     test('struct *fields* assign accepts field', () {
       final s = struct('s')..fields = [field('m1', 1), field('m2', 42, textT),];
       expect(darkMatter(s.definition),
-          darkMatter('struct S{ m1 @1 :Int32; m2 @42 :Text;}'));
+          darkMatter('struct s{ m1 @1 :Int32; m2 @42 :Text;}'));
     });
 
     test('struct *fields* assign accepts strings', () {
       var s = struct('s')..fields = ['m1 1', 'm2 42 :Text', 'm3 @43 :Text'];
       expect(darkMatter(s.definition),
-          darkMatter('struct S{ m1 @1 :Int32; m2 @42 :Text; m3 @43 :Text;}'));
+          darkMatter('struct s{ m1 @1 :Int32; m2 @42 :Text; m3 @43 :Text;}'));
     });
 
     test('struct field supports default values', () {
@@ -59,7 +59,7 @@ main([List<String> args]) {
           field('m2', 2)..defaultValue = [1, 2, 3],
         ];
       expect(darkMatter(s.definition), darkMatter('''
-struct S {
+struct s {
   m1 @1 :Int32 = 32;
   m2 @2 :Int32 = [1, 2, 3];
 }'''));

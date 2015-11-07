@@ -22,19 +22,16 @@ main([List<String> args]) {
 // custom <main>
 
   test('enum definition - default indices', () {
-    final e = enum_('color')
-      ..doc = 'Establishes the beest colors'
-      ..values = ['red', 'green', 'blue'];
+    final e = enum_('color')..values = ['red', 'green', 'blue'];
 
     expect(
         darkSame(
             e.definition,
             '''
-enum Color {
-  #  Establishes the beest colors
-  Red_e @0;
-  Green_e @1;
-  Blue_e @2;
+enum color {
+  red @0;
+  green @1;
+  blue @2;
 }
 '''),
         true);
@@ -42,25 +39,21 @@ enum Color {
 
   test('enum definition - managed indices', () {
     final e = enum_('color')
-      ..doc = 'Establishes the beest colors'
       ..values = [
-        enumValue('red', 3)..doc = 'The color of blood',
-        enumValue('green', 6)..doc = 'The color of grass',
-        enumValue('blue', 9)..doc = 'The color of the sky',
+        enumValue('red', 3),
+        enumValue('green', 6),
+        enumValue('blue', 9),
       ];
 
     expect(
         darkSame(
             e.definition,
             '''
-enum Color {
-  #  Establishes the beest colors
-  Red_e @3;
-    #  The color of blood
-  Green_e @6;
-    #  The color of grass
-  Blue_e @9;
-    #  The color of the sky
+enum color {
+  red @3;
+  green @6;
+  blue @9;
+
 }
 '''),
         true);

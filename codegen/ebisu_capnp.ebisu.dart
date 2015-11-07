@@ -199,17 +199,13 @@ BuiltIn get builtInType;
             ..classes = [
               class_('capnp_entity')
                 ..isAbstract = true
-                ..extend = 'Entity'
                 ..members = [
                   member('id')
                     ..doc = 'The [Id] for the entity'
                     ..type = 'String'
                     ..access = RO
                     ..isFinal = true,
-                  member('namer')
-                    ..type = 'Namer'
-                    ..isStatic = true
-                    ..classInit = 'new DefaultNamer()',
+                  member('doc_comment')
                 ],
             ],
           part('using')
