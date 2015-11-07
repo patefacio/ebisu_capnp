@@ -51,7 +51,7 @@ class DefaultNamer extends Namer {
   String nameStruct(String id) => idFromString(id).capCamel;
   String nameMember(String id) => idFromString(id).camel;
   String nameAliasUsing(String id) => '${idFromString(id).capSnake}_t';
-  String nameConst(String id) => '${idFromString(id).snake}';
+  String nameConst(String id) => '${idFromString(id).capSnake}';
 
   // end <class DefaultNamer>
 

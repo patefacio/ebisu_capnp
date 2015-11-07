@@ -24,9 +24,6 @@ void main(List<String> args) {
         "test/test_group.dart",
         "test/test_interface.dart",
         "test/test_generic.dart",
-        "test/test_constant.dart",
-        "test/test_import.dart",
-        "test/test_annotation.dart",
         "test/test_schema.dart",
         "test/test_parser.dart",
         "test/test_factories.dart"

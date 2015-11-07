@@ -8,6 +8,7 @@ import 'package:test/test.dart';
 // custom <additional imports>
 // end <additional imports>
 
+part 'src/test_factories/name_constants.dart';
 part 'src/test_factories/name_enums.dart';
 
 final _logger = new Logger('test_factories');
@@ -22,6 +23,7 @@ main([List<String> args]) {
 // custom <main>
 
   testNamingEnums();
+  testNamingConsts();
 
 // end <main>
 }

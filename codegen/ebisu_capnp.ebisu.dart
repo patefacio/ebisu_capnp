@@ -53,9 +53,6 @@ A library focusing on capnp modeling and enhancement
       library('test_group')..imports = ['../lib/capnp_schema.dart'],
       library('test_interface')..imports = ['../lib/capnp_schema.dart'],
       library('test_generic')..imports = ['../lib/capnp_schema.dart'],
-      library('test_constant')..imports = ['../lib/capnp_schema.dart'],
-      library('test_import')..imports = ['../lib/capnp_schema.dart'],
-      library('test_annotation')..imports = ['../lib/capnp_schema.dart'],
       library('test_schema')..imports = ['../lib/capnp_schema.dart'],
       library('test_parser')
       ..imports = ['../lib/capnp_schema.dart']
@@ -77,6 +74,7 @@ A library focusing on capnp modeling and enhancement
       ]
       ..parts = [
         part('name_enums'),
+        part('name_constants'),
       ]
     ]
     ..libraries = [

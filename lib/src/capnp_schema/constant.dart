@@ -10,8 +10,8 @@ class Constant extends CapnpEntity implements Definable, Referable {
 
   get reference => throw 'TBD';
 
-  get constStatement =>
-      brCompact(['const $name $type = $value;', indentBlock(this.docComment)]);
+  get constStatement => brCompact(
+      ['const $name ${type.type} = $value;', indentBlock(this.docComment)]);
 
   get definition => constStatement;
 
@@ -22,7 +22,4 @@ class Constant extends CapnpEntity implements Definable, Referable {
 }
 
 // custom <part constant>
-
-Constant const_(id, type, value) => new Constant(id, type, value);
-
 // end <part constant>
