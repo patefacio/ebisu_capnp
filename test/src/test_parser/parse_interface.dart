@@ -9,9 +9,9 @@ final _validInterfaces = {
   'interface with lots of stuff': '''
 interface IF {
   nestedMethod @1 (arg1Name :Int32, arg2Name :Int64) -> (result :List(Int32));
-  struct nestedStruct { }
-  enum nestedEnum { red @0; }
-  interface nestedInterface { }
+  struct NestedStruct { }
+  enum NestedEnum { red @0; }
+  interface NestedInterface { }
 }
 '''
 };
@@ -34,6 +34,11 @@ parseInterfaceTests() {
     final schema = _validInterfaces[lotsOfStuff];
     final p = parser.parse(schema).value;
     expect(p.interfaces.first is Interface, true);
+  });
+
+
+  test('catches invalid *interface* name', () {
+    expect(() => parser.parse('interface shouldStartCapital {}'), throwsException);
   });
 }
 

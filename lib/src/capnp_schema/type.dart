@@ -78,12 +78,20 @@ class LiteralList extends Literal {
 }
 
 // custom <part type>
+
+final _startsCapital = new RegExp(r'^[A-Z]');
+_typeNameCheck(String type) {
+  if (!type.contains(_startsCapital)) {
+    throw new FormatException('capnp *Type Names* must begin with a capital letter: $type');
+  }
+}
+
 // end <part type>
 
 /// Built in type for *Void*
 class IdlVoid extends BuiltInType {
   const IdlVoid();
-  String get type => ':Void';
+  String get type => 'Void';
   BuiltIn get builtInType => BuiltIn.voidT;
 }
 
@@ -95,7 +103,7 @@ const voidT = const IdlVoid();
 /// Built in type for *Bool*
 class IdlBool extends BuiltInType {
   const IdlBool();
-  String get type => ':Bool';
+  String get type => 'Bool';
   BuiltIn get builtInType => BuiltIn.boolT;
 }
 
@@ -107,7 +115,7 @@ const boolT = const IdlBool();
 /// Built in type for *Int8*
 class IdlInt8 extends BuiltInType {
   const IdlInt8();
-  String get type => ':Int8';
+  String get type => 'Int8';
   BuiltIn get builtInType => BuiltIn.int8T;
 }
 
@@ -119,7 +127,7 @@ const int8T = const IdlInt8();
 /// Built in type for *Int16*
 class IdlInt16 extends BuiltInType {
   const IdlInt16();
-  String get type => ':Int16';
+  String get type => 'Int16';
   BuiltIn get builtInType => BuiltIn.int16T;
 }
 
@@ -131,7 +139,7 @@ const int16T = const IdlInt16();
 /// Built in type for *Int32*
 class IdlInt32 extends BuiltInType {
   const IdlInt32();
-  String get type => ':Int32';
+  String get type => 'Int32';
   BuiltIn get builtInType => BuiltIn.int32T;
 }
 
@@ -143,7 +151,7 @@ const int32T = const IdlInt32();
 /// Built in type for *Int64*
 class IdlInt64 extends BuiltInType {
   const IdlInt64();
-  String get type => ':Int64';
+  String get type => 'Int64';
   BuiltIn get builtInType => BuiltIn.int64T;
 }
 
@@ -155,7 +163,7 @@ const int64T = const IdlInt64();
 /// Built in type for *UInt8*
 class IdlUInt8 extends BuiltInType {
   const IdlUInt8();
-  String get type => ':UInt8';
+  String get type => 'UInt8';
   BuiltIn get builtInType => BuiltIn.uInt8T;
 }
 
@@ -167,7 +175,7 @@ const uInt8T = const IdlUInt8();
 /// Built in type for *UInt16*
 class IdlUInt16 extends BuiltInType {
   const IdlUInt16();
-  String get type => ':UInt16';
+  String get type => 'UInt16';
   BuiltIn get builtInType => BuiltIn.uInt16T;
 }
 
@@ -179,7 +187,7 @@ const uInt16T = const IdlUInt16();
 /// Built in type for *UInt32*
 class IdlUInt32 extends BuiltInType {
   const IdlUInt32();
-  String get type => ':UInt32';
+  String get type => 'UInt32';
   BuiltIn get builtInType => BuiltIn.uInt32T;
 }
 
@@ -191,7 +199,7 @@ const uInt32T = const IdlUInt32();
 /// Built in type for *UInt64*
 class IdlUInt64 extends BuiltInType {
   const IdlUInt64();
-  String get type => ':UInt64';
+  String get type => 'UInt64';
   BuiltIn get builtInType => BuiltIn.uInt64T;
 }
 
@@ -203,7 +211,7 @@ const uInt64T = const IdlUInt64();
 /// Built in type for *Float32*
 class IdlFloat32 extends BuiltInType {
   const IdlFloat32();
-  String get type => ':Float32';
+  String get type => 'Float32';
   BuiltIn get builtInType => BuiltIn.float32T;
 }
 
@@ -215,7 +223,7 @@ const float32T = const IdlFloat32();
 /// Built in type for *Float64*
 class IdlFloat64 extends BuiltInType {
   const IdlFloat64();
-  String get type => ':Float64';
+  String get type => 'Float64';
   BuiltIn get builtInType => BuiltIn.float64T;
 }
 
@@ -227,7 +235,7 @@ const float64T = const IdlFloat64();
 /// Built in type for *Text*
 class IdlText extends BuiltInType {
   const IdlText();
-  String get type => ':Text';
+  String get type => 'Text';
   BuiltIn get builtInType => BuiltIn.textT;
 }
 
@@ -239,7 +247,7 @@ const textT = const IdlText();
 /// Built in type for *Data*
 class IdlData extends BuiltInType {
   const IdlData();
-  String get type => ':Data';
+  String get type => 'Data';
   BuiltIn get builtInType => BuiltIn.dataT;
 }
 
@@ -251,7 +259,7 @@ const dataT = const IdlData();
 /// Built in type for *List*
 class IdlList extends BuiltInType {
   const IdlList();
-  String get type => ':List';
+  String get type => 'List';
   BuiltIn get builtInType => BuiltIn.listT;
 }
 

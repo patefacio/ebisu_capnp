@@ -33,7 +33,7 @@ main([List<String> args]) {
   Logger.root.level = Level.OFF;
 // custom <main>
 
-  Logger.root.level = Level.WARNING;
+  Logger.root.level = Level.OFF;
   parseImportTests();
   parseTypeTests();
   parseLiteralTests();

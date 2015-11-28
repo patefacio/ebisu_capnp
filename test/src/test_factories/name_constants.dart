@@ -3,7 +3,7 @@ part of ebisu_capnp.test_factories;
 // custom <part name_constants>
 
 final _constNameConversions = {
-  const_('color', int32T, '32'): 'const Color :Int32 = 32;',
+  const_('color', int32T, '32'): 'const Color Int32 = 32;',
 };
 
 testNamingConsts() {

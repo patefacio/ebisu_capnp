@@ -15,7 +15,7 @@ parseUnionTests() {
   final parser = new CapnpParser();
   _validUnions.forEach((String label, String capnp) {
     final s = '''
-struct s {
+struct S {
   $capnp
 }
 ''';

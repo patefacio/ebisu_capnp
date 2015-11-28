@@ -134,7 +134,7 @@ A library focusing on capnp modeling and enhancement
                   ..withCustomBlock((CodeBlock cb) {
                     cb..snippets.add('''
 const ${typeClassId.capCamel}();
-String get type => ':${baseId.capCamel}';
+String get type => '${baseId.capCamel}';
 BuiltIn get builtInType => BuiltIn.$constVar;
 ''');
                   });

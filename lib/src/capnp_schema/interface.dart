@@ -46,13 +46,13 @@ class MethodDecl extends CapnpEntity with Numbered {
   MethodDecl(id) : super(id);
 
   get _expanded => [
-        '$id $number (',
+        '$id @$number (',
         indentBlock(methodParms.map((mp) => mp.definition).join(',\n')),
         ') -> $methodReturn',
       ];
 
   get _inlined => [
-        '$id $number (${methodParms.map((mp) => mp.definition).join(", ")}) -> $methodReturn;'
+        '$id @$number (${methodParms.map((mp) => mp.definition).join(", ")}) -> $methodReturn;'
       ];
 
   get definition => brCompact([methodParms.length > 2 ? _expanded : _inlined]);
@@ -73,7 +73,9 @@ class Interface extends CapnpEntity {
 
   // custom <class Interface>
 
-  Interface(id) : super(id);
+  Interface(id) : super(id) {
+    _typeNameCheck(id);
+  }
 
   get definition => brCompact([
         'interface $name {',

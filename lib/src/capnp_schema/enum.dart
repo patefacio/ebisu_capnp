@@ -21,7 +21,9 @@ class Enum extends CapnpEntity implements Definable, Referable {
 
   // custom <class Enum>
 
-  Enum(id) : super(id);
+  Enum(id) : super(id) {
+    _typeNameCheck(id);
+  }
 
   get reference => throw 'TBD';
 

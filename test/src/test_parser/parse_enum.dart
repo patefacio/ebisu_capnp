@@ -3,8 +3,8 @@ part of ebisu_capnp.test_parser;
 // custom <part parse_enum>
 
 final _validEnums = {
-  'empty enum': 'enum foo {}',
-  'empty enum with comment': 'enum foo { # comment\n }',
+  'empty enum': 'enum Foo {}',
+  'empty enum with comment': 'enum Foo { # comment\n }',
   'enum with multiple fields': '''
 enum Operator {
     add @0;          ##
@@ -19,9 +19,14 @@ parseEnumTests() {
   _validEnums.forEach((String label, String capnp) {
     test(label, () => expect(parser.accept(capnp), true));
 
-    final s = 'struct s { $capnp }';
+    final s = 'struct S { $capnp }';
     test(label, () => expect(parser.accept(s), true));
   });
+
+  test('catches invalid *enum* name', () {
+    expect(() => parser.parse('enum shouldStartCapital {}'), throwsException);
+  });
+
 }
 
 // end <part parse_enum>

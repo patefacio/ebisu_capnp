@@ -15,7 +15,7 @@ class Field extends CapnpEntity with Numbered implements Definable, Referable {
   }
 
   get definition =>
-      combine([name, '@$number', type.type, _defaultAssign], ' ') + ';';
+      combine([name, '@$number', ':${type.type}', _defaultAssign], ' ') + ';';
 
   set defaultValue(defaultValue_) {
     if (type == null) {
@@ -46,7 +46,9 @@ class Struct extends CapnpEntity
   List<Enum> enums = [];
 
   // custom <class Struct>
-  Struct(id) : super(id);
+  Struct(id) : super(id) {
+    _typeNameCheck(id);
+  }
 
   /// Return the definition of the struct in IDL format
   get definition {
