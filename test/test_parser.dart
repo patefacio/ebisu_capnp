@@ -6,6 +6,8 @@ import 'package:test/test.dart';
 
 // custom <additional imports>
 
+import 'dart:io';
+import 'package:path/path.dart';
 import 'package:ebisu_capnp/capnp_parser.dart';
 import 'package:ebisu/ebisu.dart';
 import 'package:petitparser/debug.dart';
@@ -43,6 +45,17 @@ main([List<String> args]) {
   parseStructTests();
   parseMethodTests();
   parseInterfaceTests();
+
+  final schemaDir = new Directory(join('schemas'));
+  final parser = new CapnpParser();
+  schemaDir.listSync(recursive:true, followLinks:false).forEach((FileSystemEntity f) {
+    if(f.path.endsWith('schema.capnp') && FileSystemEntity.isFileSync(f.path)) {
+      final capnp = new File(f.path).readAsStringSync();
+      print(parser.parse(capnp));
+      //print('Processing $f\n----------------------\n$capnp');
+    }
+  });
+
 
 // end <main>
 }
