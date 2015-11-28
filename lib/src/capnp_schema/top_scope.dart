@@ -1,18 +1,24 @@
 part of ebisu_capnp.capnp_schema;
 
 class TopScope {
-  List<Enum> get enums => _enums;
-  List<Interface> get interfaces => _interfaces;
-  List<Struct> get structs => _structs;
-  List<UsingStatement> get usingStatements => _usingStatements;
+  List<Enum> enums = [];
+  List<Interface> interfaces = [];
+  List<Struct> structs = [];
+  List<UsingStatement> usingStatements = [];
 
   // custom <class TopScope>
+
+  get definition => br([
+    enums.map((e) => e.definition),
+    interfaces.map((i) => i.definition),
+    structs.map((s) => s.definition)
+  ]);
+
+  toString() => definition;
+
+
   // end <class TopScope>
 
-  List<Enum> _enums = [];
-  List<Interface> _interfaces = [];
-  List<Struct> _structs = [];
-  List<UsingStatement> _usingStatements = [];
 }
 
 // custom <part top_scope>

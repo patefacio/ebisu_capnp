@@ -1,6 +1,6 @@
 library ebisu_capnp.test_parser;
 
-import '../lib/capnp_schema.dart';
+import 'package:ebisu_capnp/capnp_schema.dart';
 import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 

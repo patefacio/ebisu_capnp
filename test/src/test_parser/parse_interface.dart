@@ -8,7 +8,7 @@ final _validInterfaces = {
   'interface with enum': 'interface Foo { enum Goo { }}',
   'interface with lots of stuff': '''
 interface IF {
-  nestedMethod @1 (arg1Name :arg1Type, arg2Name :arg2Type) -> (result :List(Int32));
+  nestedMethod @1 (arg1Name :Int32, arg2Name :Int64) -> (result :List(Int32));
   struct nestedStruct { }
   enum nestedEnum { red @0; }
   interface nestedInterface { }
@@ -26,10 +26,16 @@ parseInterfaceTests() {
   test(interfaceSimpleNested, () {
     final schema = _validInterfaces[interfaceSimpleNested];
     final p = parser.parse(schema).value;
-    print(p.runtimeType);
-    //    expect(p is Interface, true);
-    //expect(p.structs.isEmpty, true);
+    expect(p.interfaces.first is Interface, true);
   });
+
+  final lotsOfStuff = 'interface with lots of stuff';
+  test(lotsOfStuff, () {
+    final schema = _validInterfaces[lotsOfStuff];
+    final p = parser.parse(schema).value;
+    expect(p.interfaces.first is Interface, true);
+  });
+
 }
 
 // end <part parse_interface>

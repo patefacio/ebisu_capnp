@@ -18,6 +18,9 @@ parseEnumTests() {
   final parser = new CapnpParser();
   _validEnums.forEach((String label, String capnp) {
     test(label, () => expect(parser.accept(capnp), true));
+
+    final s = 'struct s { $capnp }';
+    test(label, () => expect(parser.accept(s), true));
   });
 }
 

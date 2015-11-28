@@ -262,7 +262,7 @@ BuiltIn get builtInType;
           part('top_scope')
           ..classes = [
             class_('top_scope')
-            ..defaultMemberAccess = RO
+            ..defaultMemberAccess = RW
             ..members = [
               member('enums')
               ..type = 'List<Enum>'

@@ -53,10 +53,12 @@ class Struct extends CapnpEntity
     final unionsVisited = new Set();
     final result = brCompact([
       'struct $name {',
+      indentBlock(brCompact(enums.map((e) => e.definition))),
       indentBlock(brCompact(interfaces.map((i) => i.definition))),
       indentBlock(brCompact(structs.map((s) => s.definition))),
       indentBlock(brCompact(_fields.map((m) => _pullField(m, unionsVisited)))),
-      '}']);
+      '}'
+    ]);
     return result;
   }
 

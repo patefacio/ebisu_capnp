@@ -11,7 +11,9 @@ class MethodParm {
 
   MethodParm(this.name, this.type);
 
-  toString() => '($name, $type)';
+  get definition => '$name :$type';
+
+  toString() => definition;
 
   // end <class MethodParm>
 
@@ -28,7 +30,7 @@ class MethodReturn {
 
   MethodReturn(this.name, this.type);
 
-  toString() => '($name, $type)';
+  toString() => '($name :$type)';
 
   // end <class MethodReturn>
 
@@ -43,8 +45,22 @@ class MethodDecl extends CapnpEntity with Numbered {
 
   MethodDecl(id) : super(id);
 
+  get _expanded => [
+    '$id $number (',
+    indentBlock(methodParms.map((mp) => mp.definition).join(',\n')),
+    ') -> $methodReturn',
+  ];
+
+  get _inlined => [
+    '$id $number (${methodParms.map((mp) => mp.definition).join(", ")}) -> $methodReturn;'
+  ];
+
+  get definition => brCompact([
+    methodParms.length > 2? _expanded : _inlined
+  ]);
+
   toString() =>
-      'MethodDecl($id:@$number) ${methodParms.join(",")} -> $methodReturn';
+      'MethodDecl($id:@$number) ${methodParms.join(",")} -> $methodReturn;';
 
   // end <class MethodDecl>
 
@@ -60,6 +76,15 @@ class Interface extends CapnpEntity {
   // custom <class Interface>
 
   Interface(id) : super(id);
+
+  get definition => brCompact([
+    'interface $name {',
+    indentBlock(brCompact(enums.map((e) => e.definition))),
+    indentBlock(brCompact(methodDecls.map((m) => m.definition))),
+    indentBlock(brCompact(interfaces.map((i) => i.definition))),
+    indentBlock(brCompact(structs.map((s) => s.definition))),
+    '}'
+  ]);
 
   toString() => '''
 Interface($id)
