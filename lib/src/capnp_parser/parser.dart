@@ -1,6 +1,7 @@
 part of ebisu_capnp.capnp_parser;
 
 class CapnpParser extends GrammarParser {
+
   // custom <class CapnpParser>
 
   CapnpParser() : super(const CapnpParserDefinition());
@@ -9,10 +10,35 @@ class CapnpParser extends GrammarParser {
 
 }
 
+
 class CapnpParserDefinition extends CapnpGrammarDefinition {
+
   // custom <class CapnpParserDefinition>
 
   const CapnpParserDefinition();
+
+  start() => super.start().map((var each) {
+    for(var topEntry in each) {
+      print('topEntry -> $topEntry');
+    }
+    return each;
+  });
+
+  /*
+      new TopScope()
+      ..structs = each[0]
+      ..interfaces = each[1]
+      ..enums = each[2]
+      ..usings = each[3]);
+
+
+  topLevelEntry() => super.topLevelEntry().map((var each) =>
+      new TopScope()
+      ..structs = each[0]
+      ..interfaces = each[1]
+      ..enums = each[2]
+      ..usings = each[3]);
+  */
 
   identifier() => super.identifier().flatten().map((var each) {
         _logger.info('Got id ${each}');
@@ -69,9 +95,14 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
   structDefinition() => super.structDefinition().map((var each) {
         final structName = each[1];
         final entries = each[3];
-        _logger.info('Entries -> $entries');
-        //assert(entries.every((e) => e is Member));
-        final struct = new Struct(structName); //..members.addAll(entries);
+        print('Entries -> $entries');
+
+        final struct = new Struct(structName)
+          ..fields.addAll(entries.where((e) => e is Field))
+          ..interfaces.addAll(entries.where((e) => e is Interface))
+          ..structs.addAll(entries.where((e) => e is Struct))
+          ..enums.addAll(entries.where((e) => e is Enum));
+
         _logger.info('Struct Def($structName)\n$struct');
         return struct;
       });

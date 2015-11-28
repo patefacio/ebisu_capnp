@@ -19,6 +19,7 @@ part 'src/capnp_schema/import.dart';
 part 'src/capnp_schema/interface.dart';
 part 'src/capnp_schema/schema.dart';
 part 'src/capnp_schema/struct.dart';
+part 'src/capnp_schema/top_scope.dart';
 part 'src/capnp_schema/type.dart';
 part 'src/capnp_schema/union.dart';
 part 'src/capnp_schema/using.dart';

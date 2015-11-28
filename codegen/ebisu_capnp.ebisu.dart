@@ -241,6 +241,7 @@ BuiltIn get builtInType;
                     ..access = RO
                 ],
             ],
+
           part('enum')
             ..classes = [
               class_('enum_value')
@@ -257,6 +258,27 @@ BuiltIn get builtInType;
                     ..classInit = [],
                 ],
             ],
+
+          part('top_scope')
+          ..classes = [
+            class_('top_scope')
+            ..defaultMemberAccess = RO
+            ..members = [
+              member('enums')
+              ..type = 'List<Enum>'
+              ..classInit = [],
+              member('interfaces')
+              ..type = 'List<Interface>'
+              ..classInit = [],
+              member('structs')
+              ..type = 'List<Struct>'
+              ..classInit = [],
+              member('using_statements')
+              ..type = 'List<UsingStatement>'
+              ..classInit = [],
+            ]
+          ],
+
           part('struct')
             ..classes = [
               class_('field')
@@ -290,8 +312,12 @@ For an anonymous union use empty string ""
                   member('structs')
                     ..type = 'List<Struct>'
                     ..classInit = [],
+                  member('enums')
+                    ..type = 'List<Enum>'
+                    ..classInit = [],
                 ]
             ],
+
           part('union')
             ..classes = [
               class_('union')
@@ -303,7 +329,9 @@ For an anonymous union use empty string ""
                     ..access = RO,
                 ]
             ],
+
           part('group'),
+
           part('interface')
             ..classes = [
               class_('method_parm')

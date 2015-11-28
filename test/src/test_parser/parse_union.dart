@@ -14,7 +14,12 @@ union { abc @1 : int; }
 parseUnionTests() {
   final parser = new CapnpParser();
   _validUnions.forEach((String label, String capnp) {
-    test(label, () => expect(parser.accept(capnp), true));
+    final s = '''
+struct s {
+  $capnp
+}
+''';
+    test(label, () => expect(parser.accept(s), true));
   });
 }
 

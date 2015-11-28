@@ -110,11 +110,7 @@ class CapnpGrammarDefinition extends GrammarDefinition {
   topLevelEntry() => ref(structDefinition) |
       ref(interfaceDefinition) |
       ref(enumDefinition) |
-      ref(method) |
-      ref(usingStatement) |
-      ref(unionDefinition) |
-      ref(literal) |
-      ref(methodReturn);
+      ref(usingStatement);
 
   typeSpecifier() => ref(token, ':') & ref(typeIdentifier);
 

@@ -13,7 +13,12 @@ foo @1 (x :goo, y :moob) -> (goo :Int32) ;
 parseMethodTests() {
   final parser = new CapnpParser();
   _validMethods.forEach((String label, String capnp) {
-    test(label, () => expect(parser.accept(capnp), true));
+    final methodInterface = '''
+interface X {
+  $capnp
+}
+''';
+    test(label, () => expect(parser.accept(methodInterface), true));
   });
 }
 

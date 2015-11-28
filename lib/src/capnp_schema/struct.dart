@@ -43,6 +43,7 @@ class Struct extends CapnpEntity
   List<Field> get fields => _fields;
   List<Interface> get interfaces => _interfaces;
   List<Struct> structs = [];
+  List<Enum> enums = [];
 
   // custom <class Struct>
   Struct(id) : super(id);
@@ -50,13 +51,12 @@ class Struct extends CapnpEntity
   /// Return the definition of the struct in IDL format
   get definition {
     final unionsVisited = new Set();
-    final result = '''
-struct $name {
-${indentBlock(brCompact(interfaces.map((i) => i.definition)))}
-${indentBlock(brCompact(structs.map((s) => s.definition)))}
-${indentBlock(brCompact(_fields.map((m) => _pullField(m, unionsVisited))))}
-}
-''';
+    final result = brCompact([
+      'struct $name {',
+      indentBlock(brCompact(interfaces.map((i) => i.definition))),
+      indentBlock(brCompact(structs.map((s) => s.definition))),
+      indentBlock(brCompact(_fields.map((m) => _pullField(m, unionsVisited)))),
+      '}']);
     return result;
   }
 

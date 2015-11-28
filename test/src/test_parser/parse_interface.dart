@@ -21,6 +21,15 @@ parseInterfaceTests() {
   _validInterfaces.forEach((String label, String capnp) {
     test(label, () => expect(parser.accept(capnp), true));
   });
+
+  final interfaceSimpleNested = 'interface simple nested';
+  test(interfaceSimpleNested, () {
+    final schema = _validInterfaces[interfaceSimpleNested];
+    final p = parser.parse(schema).value;
+    print(p.runtimeType);
+    //    expect(p is Interface, true);
+    //expect(p.structs.isEmpty, true);
+  });
 }
 
 // end <part parse_interface>
