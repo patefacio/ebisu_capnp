@@ -55,7 +55,7 @@ A library focusing on capnp modeling and enhancement
       library('test_generic')..imports = ['../lib/capnp_schema.dart'],
       library('test_schema')..imports = ['../lib/capnp_schema.dart'],
       library('test_parser')
-      ..imports = ['../lib/capnp_schema.dart']
+      ..imports = ['package:ebisu_capnp/capnp_schema.dart']
       ..parts = [
         part('parse_type'),
         part('parse_literal'),

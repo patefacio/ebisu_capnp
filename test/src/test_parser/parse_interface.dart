@@ -35,7 +35,6 @@ parseInterfaceTests() {
     final p = parser.parse(schema).value;
     expect(p.interfaces.first is Interface, true);
   });
-
 }
 
 // end <part parse_interface>

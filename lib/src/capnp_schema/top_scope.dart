@@ -9,13 +9,12 @@ class TopScope {
   // custom <class TopScope>
 
   get definition => br([
-    enums.map((e) => e.definition),
-    interfaces.map((i) => i.definition),
-    structs.map((s) => s.definition)
-  ]);
+        enums.map((e) => e.definition),
+        interfaces.map((i) => i.definition),
+        structs.map((s) => s.definition)
+      ]);
 
   toString() => definition;
-
 
   // end <class TopScope>
 
