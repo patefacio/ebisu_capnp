@@ -65,5 +65,35 @@ class Numbered {
 
 }
 
+class UniqueId {
+  const UniqueId(this.id);
+
+  final int id;
+
+  // custom <class UniqueId>
+
+  String get asHex => '0x${id.toRadixString(16)}';
+
+  toString() => asHex;
+
+  // end <class UniqueId>
+
+}
+
 // custom <part common>
+
+/// Given [parentId] which maps to outer scope or file if top level and [name],
+/// returns unique id for *named* item.
+UniqueId generateChildId(UniqueId parentId, String name) {
+  final parentIdBytes = new List(8);
+  for (int i = 0; i < 8; i++) {
+    parentIdBytes[i] = (parentId.id >> (i * 8)) & 0xff;
+  }
+
+  final bytes = (new MD5()..add(parentIdBytes)..add(name.codeUnits)).close();
+
+  new UniqueId(bytes.sublist(0, 8).fold(0, (prev, elm) => ((prev << 8) | elm)) |
+      (1 << 63));
+}
+
 // end <part common>

@@ -82,7 +82,8 @@ class LiteralList extends Literal {
 final _startsCapital = new RegExp(r'^[A-Z]');
 _typeNameCheck(String type) {
   if (!type.contains(_startsCapital)) {
-    throw new FormatException('capnp *Type Names* must begin with a capital letter: $type');
+    throw new FormatException(
+        'capnp *Type Names* must begin with a capital letter: $type');
   }
 }
 

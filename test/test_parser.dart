@@ -22,6 +22,7 @@ part 'src/test_parser/parse_method.dart';
 part 'src/test_parser/parse_struct.dart';
 part 'src/test_parser/parse_type.dart';
 part 'src/test_parser/parse_union.dart';
+part 'src/test_parser/parse_unique_id.dart';
 part 'src/test_parser/parse_using.dart';
 
 final _logger = new Logger('test_parser');
@@ -36,6 +37,7 @@ main([List<String> args]) {
 // custom <main>
 
   Logger.root.level = Level.OFF;
+  parseUniqueIdTests();
   parseImportTests();
   parseTypeTests();
   parseLiteralTests();
@@ -49,14 +51,16 @@ main([List<String> args]) {
   final here = dirname(absolute(Platform.script.toFilePath()));
   final schemaDir = new Directory(join(here, 'schemas'));
   final parser = new CapnpParser();
-  schemaDir.listSync(recursive:true, followLinks:false).forEach((FileSystemEntity f) {
-    if(f.path.endsWith('schema.capnp') && FileSystemEntity.isFileSync(f.path)) {
+  schemaDir
+      .listSync(recursive: true, followLinks: false)
+      .forEach((FileSystemEntity f) {
+    if (f.path.endsWith('schema.capnp') &&
+        FileSystemEntity.isFileSync(f.path)) {
       final capnp = new File(f.path).readAsStringSync();
       print(parser.parse(capnp));
       //print('Processing $f\n----------------------\n$capnp');
     }
   });
-
 
 // end <main>
 }

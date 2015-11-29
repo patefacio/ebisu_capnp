@@ -107,10 +107,14 @@ class CapnpGrammarDefinition extends GrammarDefinition {
       (ref(token, '@') & digit().plus().flatten().trim().map(int.parse))
           .map((e) => e[1]);
 
-  topLevelEntry() => ref(structDefinition) |
+  topLevelEntry() => ref(uniqueIdStatement) |
+      ref(structDefinition) |
       ref(interfaceDefinition) |
       ref(enumDefinition) |
       ref(usingStatement);
+
+  uniqueIdStatement() => (ref(token, '@') & ref(literalInt) & ref(token, ';'))
+      .map((e) => new UniqueId(e[1]));
 
   typeSpecifier() => ref(token, ':') & ref(typeIdentifier);
 

@@ -26,7 +26,6 @@ parseEnumTests() {
   test('catches invalid *enum* name', () {
     expect(() => parser.parse('enum shouldStartCapital {}'), throwsException);
   });
-
 }
 
 // end <part parse_enum>

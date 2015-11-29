@@ -36,9 +36,9 @@ parseInterfaceTests() {
     expect(p.interfaces.first is Interface, true);
   });
 
-
   test('catches invalid *interface* name', () {
-    expect(() => parser.parse('interface shouldStartCapital {}'), throwsException);
+    expect(
+        () => parser.parse('interface shouldStartCapital {}'), throwsException);
   });
 }
 

@@ -16,6 +16,7 @@ class CapnpParserDefinition extends CapnpGrammarDefinition {
 
   start() => super.start().map((var each) {
         final result = new TopScope()
+          ..uniqueId = each.firstWhere((s) => s is UniqueId, orElse: () => null)
           ..structs = each.where((s) => s is Struct).toList()
           ..interfaces = each.where((i) => i is Interface).toList()
           ..enums = each.where((e) => e is Enum).toList();

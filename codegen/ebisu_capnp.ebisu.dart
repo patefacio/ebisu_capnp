@@ -57,6 +57,7 @@ A library focusing on capnp modeling and enhancement
       library('test_parser')
       ..imports = ['package:ebisu_capnp/capnp_schema.dart']
       ..parts = [
+        part('parse_unique_id'),
         part('parse_type'),
         part('parse_literal'),
         part('parse_import'),
@@ -118,6 +119,11 @@ A library focusing on capnp modeling and enhancement
               class_('namer')..isAbstract = true,
               class_('default_namer')..extend = 'Namer',
               class_('numbered')..members = [member('number')..type = 'int'],
+              class_('unique_id')
+              ..isImmutable = true
+              ..members = [
+                member('id')..type = 'int'
+              ]
             ],
 
           part('type')
@@ -264,6 +270,8 @@ BuiltIn get builtInType;
             class_('top_scope')
             ..defaultMemberAccess = RW
             ..members = [
+              member('unique_id')
+              ..type = 'UniqueId',
               member('enums')
               ..type = 'List<Enum>'
               ..classInit = [],

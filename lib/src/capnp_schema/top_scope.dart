@@ -1,6 +1,7 @@
 part of ebisu_capnp.capnp_schema;
 
 class TopScope {
+  UniqueId uniqueId;
   List<Enum> enums = [];
   List<Interface> interfaces = [];
   List<Struct> structs = [];
@@ -9,6 +10,7 @@ class TopScope {
   // custom <class TopScope>
 
   get definition => br([
+        '${uniqueId};',
         enums.map((e) => e.definition),
         interfaces.map((i) => i.definition),
         structs.map((s) => s.definition)
