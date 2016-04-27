@@ -14,5 +14,6 @@ build/
 # custom <additional>
 *.*~
 pubspec.lock
+\.packages
 # end <additional>
 
