@@ -21,7 +21,7 @@ dev_dependencies:
 
 # custom <ebisu_capnp dev dependencies>
 
-  test: "^0.12.0"
+  test: "^0.12.13"
 
 # end <ebisu_capnp dev dependencies>
 
