@@ -22,6 +22,7 @@ dev_dependencies:
 # custom <ebisu_capnp dev dependencies>
 
   test: "^0.12.13"
+  petitparser: "any"
 
 # end <ebisu_capnp dev dependencies>
 
